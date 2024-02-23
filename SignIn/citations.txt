@@ -1,0 +1,2 @@
+User signin was created after observing the tutorial found here: https://www.youtube.com/watch?v=ZVyIIyZJutM&t=589s.
+The video is titled "Login and Registration using MERN Stack | Mongo, Express, React and Node Authentication", and was created 8 months ago by the channel Code with Yousaf.
