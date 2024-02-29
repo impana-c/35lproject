@@ -23,7 +23,7 @@ function Profile() {
 
   return (
     <div>
-      <h2>My Profile</h2>
+      <h2><center>My Profile</center></h2>
       {user ? (
         <div>
           <p>Name: {user.name}</p>
@@ -33,6 +33,7 @@ function Profile() {
           <p>Other preferences: <i>insert other preferences</i></p>
         </div>
       ) : ( <p>Loading...</p> )}
+      <Link to="/updateprofile"> <button>Update Profile</button> </Link>
       <Link to="/home"> <button>Home</button> </Link>
     </div>
   );

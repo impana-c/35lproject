@@ -6,6 +6,7 @@ import Signup from './Signup'
 import Login from './Login'
 import Homepage from './Homepage'
 import Profile from './Profile'
+import UpdateProfile from './UpdateProfile'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/home' element={<Homepage/>}/>
         <Route path='/profile' element={<Profile/>}/>
+        <Route path='/updateprofile' element={<UpdateProfile/>}/>
       </Routes>
     </BrowserRouter>
     </>

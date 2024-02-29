@@ -15,7 +15,6 @@ app.get('/', (req, res) => {
 })
 
 app.get('/profile', async (req, res) => {
-    console.log("hello")
     try {
       const { email } = req.query;
       const user = await UserModel.findOne({ email: email });
@@ -64,6 +63,62 @@ app.post('/signup',(req,res)=>{
             }
     })
     .catch(err => res.json(err))
+    }
+})
+
+app.post('/updateprofile',(req,res)=>{
+    const {name,email,passwordOld,passwordNew,userEmail} = req.body;
+    //console.log(req.body)
+    if (name==="" && email==="" && passwordOld==="" && passwordNew===""){
+        console.log("No changes need to be made.")
+        res.json("No changes need to be made.")
+    } else {
+        UserModel.findOne({email:userEmail})
+        .then(user=>{
+            if (user){ // Once a user is found
+                if (passwordOld === "" && passwordNew === "" ){ 
+                    UserModel.findOneAndUpdate(
+                        { email: userEmail },
+                        { 
+                            $set: { 
+                                ...(name && { name }),  
+                                ...(email && { email }),
+                            }
+                        },
+                        { new: true }
+                    )
+                    .then(updatedUser => {
+                        res.json(updatedUser);
+                        console.log("Update successful.")
+                    })
+                    .catch(err => res.json(err))
+                } else if (passwordOld === "" && user.password != "" && passwordNew != "" ){ 
+                    res.json("Enter old password first.")
+                } else if (user.password != passwordOld){ 
+                    res.json("Passwords do not match.")
+                } else if (user.password === passwordNew){ 
+                    res.json("New password = current password.")
+                } else {
+                    UserModel.findOneAndUpdate(
+                        { email: userEmail },
+                        { 
+                            $set: { 
+                                ...(name && { name }),  
+                                ...(email && { email }),
+                                ...(passwordNew && { password: passwordNew }),
+                            }
+                        },
+                        { new: true }
+                    )
+                    .then(updatedUser => {
+                        res.json(updatedUser);
+                        console.log("Update successful.")
+                    })
+                    .catch(err => res.json(err))
+                }
+            } 
+        })
+        .catch(err => res.json(err))
     }
 })
 
