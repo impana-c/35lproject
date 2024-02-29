@@ -1,3 +1,4 @@
+const PORT = 3001;
 const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
@@ -8,6 +9,22 @@ app.use(express.json())
 app.use(cors())
 
 mongoose.connect("mongodb://127.0.0.1:27017/database");
+
+app.get('/', (req, res) => {
+    res.send('Hello from our server!')
+})
+
+app.get('/profile', async (req, res) => {
+    console.log("hello")
+    try {
+      const { email } = req.query;
+      const user = await UserModel.findOne({ email: email });
+      res.json({ user });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 app.post('/login', (req,res)=>{
     const {email,password} = req.body;
@@ -26,16 +43,13 @@ app.post('/login', (req,res)=>{
     })
 })
 
-// app.post("/signup", (req, res) => {
-//     UserModel.create(req.body)
-//     .then(user => res.json(user))
-//     .catch(err => res.json(err))
-// })
 app.post('/signup',(req,res)=>{
-    const {name,email,password} = req.body;
+    const {name,email,password,password2} = req.body;
     // Check if name, email, and password fields are not empty
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !password2) {
         res.json("Name, email, and password are required");
+    } else if (password != password2) {
+        res.json("Passwords do not match.");
     } else {
          // Check if an account already exists with the provided email
         UserModel.findOne({ email })
@@ -53,6 +67,6 @@ app.post('/signup',(req,res)=>{
     }
 })
 
-app.listen(3001, () => {
+app.listen(PORT, () => {
     console.log("server is running")
 })

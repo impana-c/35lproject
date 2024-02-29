@@ -16,6 +16,7 @@ function Login() {
             console.log(result)
             // Direct to homepage if user and password match
             if(result.data === "Correct user and password."){
+                localStorage.setItem('email', email);
                 navigate("/home")
             // Otherwise send various alert messages if user doesn't exist/password doesn't match
             } else if (result.data === "Password is wrong."){

@@ -8,6 +8,7 @@ function Signup() {
     const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const [password2, setPassword2] = useState()
     const navigate = useNavigate()
 
     // const handleSubmit = (e) => {
@@ -20,7 +21,7 @@ function Signup() {
     // }
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post("http://localhost:3001/signup", { name, email, password })
+        axios.post("http://localhost:3001/signup", { name, email, password, password2 })
         .then(result => {
             console.log(result)
             // Check for incorrect signups
@@ -28,6 +29,8 @@ function Signup() {
                 alert("All fields are required, please try again.")
             } else if (result.data === "An account already exists with that email."){
                 alert("An account already exists with that email, please log in.")
+            } else if (result.data === "Passwords do not match.") {
+                alert("Passwords do not match, please try again.")
             // Otherwise redirect to login page
             } else{
                 navigate("/login")
@@ -73,6 +76,17 @@ function Signup() {
                             placeholder='Enter Password' 
                             name='password' 
                             onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="password2">
+                            <strong>Retype Password: </strong>
+                        </label>
+                        <input 
+                            type="password" 
+                            placeholder='Retype Password' 
+                            name='password2' 
+                            onChange={(e) => setPassword2(e.target.value)}
                         />
                     </div>
                     <button> Sign Up </button>
