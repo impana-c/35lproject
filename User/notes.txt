@@ -3,7 +3,7 @@ The video is titled "Login and Registration using MERN Stack | Mongo, Express, R
 
 cd client
 npm install
-npm install bootstrap axios react-router-dom
+npm install bootstrap axios react-router-dom concurrently
 
 npm run dev
 
