@@ -4,6 +4,7 @@ import axios from "axios"
 export default function Search() {
     const [searchResult, setSearchResult] = useState([])
     const [key,setKey] = useState("")
+    const [rating, setRating] = useState(0)
     useEffect(() => {
         const search = async () => {
             try {
@@ -18,8 +19,20 @@ export default function Search() {
                 console.log(error)
             }
         }
+        
+        const filterRating = async () => {
+            try {
+                console.log(rating)
+                const res = await axios.get("http://localhost:5000/ratings", {params: {num: rating}})
+                console.log(res)
+                setSearchResult(res.data.data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
         search()
-    }, [key])
+        filterRating()
+    }, [key, rating])
     return (
         <form>
             <div className="search-wrapper">
@@ -32,6 +45,13 @@ export default function Search() {
                         onChange={(e) => setKey(e.target.value)}
                     />
                     <button className="search-btn"><BsSearch /></button>
+                    <input
+                        type="number"
+                        className="form-control"
+                        placeholder={"Enter rating"}
+                        value={rating}
+                        onChange={(c) => setRating(c.target.value)}
+                    />
                 </div>
                 {searchResult && searchResult.length > 0 && (
                     <div className="search-result">
@@ -42,7 +62,6 @@ export default function Search() {
                                     <p>{shop.location.address}</p>
                                 </div>
                             </div>    
-
                         ))}
                     </div>
                 )}
