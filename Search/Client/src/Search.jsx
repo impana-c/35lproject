@@ -1,38 +1,65 @@
 import { useEffect, useState } from "react"
 import { BsSearch } from "react-icons/bs"
 import axios from "axios"
+function intersection(arr1, arr2) {
+    const result = [];
+    console.log(arr1)
+    console.log(arr2)
+    for (let i = 0; i < arr1.length; i++) {
+        for (let j = 0; j < arr2.length; j++) {
+            if (arr1[i]._id === arr2[j]._id) {
+                result.push(arr1[i])
+                break;
+            }
+        }
+    }
+    return result;
+}
+
 export default function Search() {
     const [searchResult, setSearchResult] = useState([])
+    const [filter, setFilter] = useState([])
     const [key,setKey] = useState("")
     const [rating, setRating] = useState(0)
+    
+
     useEffect(() => {
-        const search = async () => {
+        const fetchData = async () => {
             try {
                 if (!key.trim()) {
-                    setSearchResult([])
-                    return
+                    setSearchResult([]);
+                    return;
                 }
-                const res = await axios.get("http://localhost:5000/api/v1/books", {params: {key: key}})
-                console.log(res)
-                setSearchResult(res.data.data)
+                const searchRes = await axios.get("http://localhost:5000/api/v1/books", { params: { key: key } });
+                console.log(searchRes);
+                const searchResultData = searchRes.data.data;
+                setSearchResult(searchResultData);
+                
+                if (rating) {
+                    const ratingRes = await axios.get("http://localhost:5000/ratings", { params: { num: rating } });
+                    console.log(ratingRes);
+                    const filterData = ratingRes.data.data;
+                    setFilter(filterData);
+    
+                    // Perform intersection of searchResult and filter
+                    const intersectedData = intersection(searchResultData, filterData);
+                    setSearchResult(intersectedData);
+                }
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
-        }
+        };
+    
+        fetchData();
+    }, [key, rating]);
+    
         
-        const filterRating = async () => {
-            try {
-                console.log(rating)
-                const res = await axios.get("http://localhost:5000/ratings", {params: {num: rating}})
-                console.log(res)
-                setSearchResult(res.data.data)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        search()
-        filterRating()
-    }, [key, rating])
+
+        /*console.log(filter)
+        console.log(searchResult)
+        const gt = searchResult.filter(element => filter.includes(element))
+        console.log(gt)*/
+        // To Do: only have the ones that are in both filter and searchresult be displayed
     return (
         <form>
             <div className="search-wrapper">
