@@ -38,7 +38,10 @@ const shopSchema = new mongoose.Schema(
         averageRating: {type: Number},
         numRatings: {type: Number},
         cost: {type: Number},
-        features: {type: Array},
+        bathrooms: {type: String},
+        wifi: {type: String},
+        noise: {type: String},
+        studyability: {type:String},
         ratings: {type: Array}
     }
 )

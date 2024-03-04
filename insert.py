@@ -1,7 +1,7 @@
 import csv
 from pymongo import MongoClient
 
-wantToReset = False
+wantToReset = True
 client = MongoClient('mongodb://localhost:27017/')
 db = client['database'] 
 collection = db['coffee_shops']
