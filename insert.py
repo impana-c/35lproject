@@ -24,7 +24,10 @@ with open('data.csv', 'r') as csvfile:
             'averageRating': float(row['averageRating']),
             'numRatings': int(row['numRatings']),
             'cost': int(row['cost']),
-            'features': row['features'],
+            'bathrooms': row['bathrooms'],
+            'wifi':row['wifi'],
+            'noise':row['noise'],
+            'studyability':row['studyability'],
             'ratings': row['ratings']
         })
 
