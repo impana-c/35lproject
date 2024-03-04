@@ -46,6 +46,8 @@ def general_find(data, field, value, compare=None):
 
 def calculate_distance(lat1, lon1, lat2, lon2):
     # Convert latitude and longitude from degrees to radians
+    lat1 = 34.068920
+    lon1 = -118.445183
     lat1 = radians(lat1)
     lon1 = radians(lon1)
     lat2 = radians(lat2)

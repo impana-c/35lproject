@@ -63,6 +63,21 @@ app.get('/numRatings', async (req,res) => {
     }
 })
 
+app.get('/location', async (req,res) => {
+    try {
+        const {num} = req.query
+        const filter = {
+            numRatings: { $gt: num }
+        } 
+        const data = await Shop.find(filter)
+        res.json({
+            data
+        })
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => {
