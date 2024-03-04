@@ -56,12 +56,12 @@ export default function Search() {
                     setSearchResult([]);
                     return;
                 }
-                const searchRes = await axios.get("http://localhost:5000/api/v1/books", { params: { key: key } });
+                const searchRes = await axios.get("http://localhost:3001/api/v1/name", { params: { key: key } });
                 //console.log(searchRes);
                 let searchResultData = searchRes.data.data;
                 
                 if (rating) {
-                    const ratingRes = await axios.get("http://localhost:5000/ratings", { params: { num: rating } });
+                    const ratingRes = await axios.get("http://localhost:3001/ratings", { params: { num: rating } });
                     console.log(ratingRes);
                     const filterData = ratingRes.data.data;
                     // Perform intersection of searchResult and filter
@@ -69,7 +69,7 @@ export default function Search() {
                     //setSearchResult(intersectedData);
                 }
                 if (numRatings) {
-                    const numRatingRes = await axios.get("http://localhost:5000/numRatings", { params: { num: numRatings } });
+                    const numRatingRes = await axios.get("http://localhost:3001/numRatings", { params: { num: numRatings } });
                     console.log(numRatingRes)
                     const filterData2 = numRatingRes.data.data
                     
@@ -150,7 +150,7 @@ export default function Search() {
                     <div className="search-result">
                         {searchResult.map(shop => (
                             <div className="result-item" key={shop._id}>
-                                <div className="book-info">
+                                <div>
                                     <p className="name">{shop.name}</p>
                                     <p>{shop.location.address}</p>
                                 </div>

@@ -13,9 +13,9 @@ connectMongoDB()
 
 app.use(express.json())
 
-const Shop = require("./model/book_model")
+const Shop = require("./model/shop_model")
 
-app.get('/api/v1/books', async (req,res) => {
+app.get('/api/v1/name', async (req,res) => {
     try {
         const {key, page, limit} = req.query
         //const skip = (page - 1) * limit
@@ -78,7 +78,7 @@ app.get('/location', async (req,res) => {
     }
 })
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 3001
 
 app.listen(PORT, () => {
     console.log("Server is running PORT", PORT)
