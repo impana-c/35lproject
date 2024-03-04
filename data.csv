@@ -1,6 +1,11 @@
-name,address,lat,long,averageRating,numRatings,cost,features,ratings
-"Ministry of Coffee","1010 Glendon Ave",34.062100,-118.444060,3.6,428,2,[],[]
-"Espresso Profeta","1129 Glendon Ave",34.060260,-118.444230,3.7,965,2,[],[]
-"Elysee Bakery & Cafe","1099 Gayley Ave",34.060190,-118.446530,3.4,737,2,[],[]
-"Starbucks","10955 Weyburn Ave",34.062538,-118.444206,3.0,304,1,[],[]
-"Alfred Coffee","1154 Westwood Blvd",34.059818,-118.444481,3.5,113,2,[],[]
+name,address,lat,long,averageRating,numRatings,cost,bathrooms,wifi,noise,studyability,ratings
+"Ministry of Coffee","1010 Glendon Ave",34.062100,-118.444060,3.6,428,2,"yes","yes","moderate","good",[]
+"Espresso Profeta","1129 Glendon Ave",34.060260,-118.444230,3.7,965,2,"yes","yes","moderate","good",[]
+"Elysee Bakery & Cafe","1099 Gayley Ave",34.060190,-118.446530,3.4,737,2,"yes","yes","quiet","good",[]
+"Starbucks","10955 Weyburn Ave",34.062538,-118.444206,3.0,304,304,"yes","yes","moderate","bad",[]
+"Alfred Coffee","1154 Westwood Blvd",34.059818,-118.444481,3.5,113,2,"no","yes","loud","good",[]
+"Upside Down","10962 Le Conte Ave",34.063450,-118.447530,4.9,98,1,"yes","yes","moderate","bad",[]
+"Espressoteric Coffee","1311 Westwood Blvd",34.056760,-118.442710,4.2,114,2,"yes","yes","quiet","good",[]
+"Bluestone Lane","950 Westwood Blvd",34.062910,-118.445230,3.7,88,2,"yes","yes","moderate","bad",[]
+"Le Pain Quotidien","1122 S Gayley Ave",34.059780,-118.446050,4.0,865,2,"yes","yes","quiet","bad",[]
+"Laisy Daisy Cafe","1101 Gayley Ave",34.059570,-118.446350,3.7,198,2,"yes","yes","moderate","bad",[]
