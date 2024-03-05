@@ -50,6 +50,17 @@ app.post('/startsession', (req,res)=>{
     Session.create(req.body)
 })
 
+app.post('/endsession', (req, res) => {
+    const { token } = req.body;
+    Session.deleteOne({ token: token })
+        .then(result => {})
+        .catch(error => {
+            console.error('Error ending session:', error);
+            res.status(500).json({ error: 'Internal server error.' });
+        });
+});
+
+
 app.post('/signup',(req,res)=>{
     const {name,email,password,password2} = req.body;
     // Check if name, email, and password fields are not empty

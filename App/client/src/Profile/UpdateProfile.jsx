@@ -26,10 +26,9 @@ function UpdateProfile(){
         //     }
         //   }
               // const email = localStorage.getItem('email');
-            const token = localStorage.getItem('token');
-            if (token) {
+            if (userSession) {
                 try {
-                    const response = await axios.get('http://localhost:3001/profile', { params: { token } });
+                    const response = await axios.get('http://localhost:3001/profile', { params: { token: userSession } });
                     setUser(response.data.user);
                 } catch (error) {
                     console.error('Error fetching user:', error);
@@ -37,7 +36,6 @@ function UpdateProfile(){
             }
         
         };
-    
         getInfo();
       }, []);
 
