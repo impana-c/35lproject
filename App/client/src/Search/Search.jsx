@@ -3,6 +3,9 @@ import { BsSearch } from "react-icons/bs"
 import { Link } from "react-router-dom";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+// import '../App.css'
+// import '../index.css'
+
 
 function intersection(arr1, arr2) {
     const result = [];
@@ -183,6 +186,7 @@ export default function Search() {
                         onChange={(e) => setKey(e.target.value)}
                     />
                     <button className="search-btn"><BsSearch /></button>
+                    <li> Enter rating:
                     <input
                         type="number"
                         className="form-control"
@@ -190,6 +194,8 @@ export default function Search() {
                         value={rating}
                         onChange={(c) => setRating(c.target.value)}
                     />
+                    </li>
+                    <li> Enter minimum number of ratings:
                     <input
                         type="number"
                         className="form-control"
@@ -197,6 +203,7 @@ export default function Search() {
                         value={numRatings}
                         onChange={(d) => setNumRatings(d.target.value)}
                     />
+                    </li>
                 </div>
                 {searchResult && searchResult.length > 0 && (
                     // <div className="search-result">

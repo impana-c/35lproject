@@ -42,7 +42,7 @@ function Template(){
 
         </div>
       ) : ( <p>Loading...</p> )}
-      <Link to="/search"><button>Back to searching...</button></Link>
+      <Link to="/home"><button>Back to home...</button></Link>
     </div>
   );
 }
