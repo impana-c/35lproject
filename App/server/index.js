@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const cors = require("cors")
 const UserModel = require("./model/UserModel.js")
 const Shop = require("./model/ShopModel.js")
+const Session = require("./model/SessionModel.js")
 require("dotenv").config()
 
 const app = express()
@@ -17,8 +18,9 @@ app.get('/', (req, res) => {
 
 app.get('/profile', async (req, res) => {
     try {
-      const { email } = req.query;
-      const user = await UserModel.findOne({ email: email });
+      const { token } = req.query;
+      const session = await Session.findOne({ token: token });
+      const user = await UserModel.findOne({ email: session.email });
       res.json({ user });
     } catch (err) {
       console.error(err);
@@ -42,6 +44,22 @@ app.post('/login', (req,res)=>{
         }
     })
 })
+
+app.post('/startsession', (req,res)=>{
+    const {token,email} = req.body;
+    Session.create(req.body)
+})
+
+app.post('/endsession', (req, res) => {
+    const { token } = req.body;
+    Session.deleteOne({ token: token })
+        .then(result => {})
+        .catch(error => {
+            console.error('Error ending session:', error);
+            res.status(500).json({ error: 'Internal server error.' });
+        });
+});
+
 
 app.post('/signup',(req,res)=>{
     const {name,email,password,password2} = req.body;

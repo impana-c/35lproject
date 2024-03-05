@@ -12,20 +12,30 @@ function UpdateProfile(){
     const navigate = useNavigate()
     const [user, setUser] = useState(null);
     const userEmail = localStorage.getItem('email');
+    const userSession = localStorage.getItem('token');
 
     useEffect(() => {
         const getInfo = async () => {
-          const email = userEmail;
-          if (email) {
-            try {
-              const response = await axios.get('http://localhost:3001/profile', { params: { email } });
-              setUser(response.data.user);
-            } catch (error) {
-              console.error('Error fetching user:', error);
+        //   const email = userEmail;
+        //   if (email) {
+        //     try {
+        //       const response = await axios.get('http://localhost:3001/profile', { params: { email } });
+        //       setUser(response.data.user);
+        //     } catch (error) {
+        //       console.error('Error fetching user:', error);
+        //     }
+        //   }
+              // const email = localStorage.getItem('email');
+            if (userSession) {
+                try {
+                    const response = await axios.get('http://localhost:3001/profile', { params: { token: userSession } });
+                    setUser(response.data.user);
+                } catch (error) {
+                    console.error('Error fetching user:', error);
+                }
             }
-          }
+        
         };
-    
         getInfo();
       }, []);
 
