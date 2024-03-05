@@ -15,6 +15,17 @@ app.use(express.json())
 
 const Shop = require("./model/shop_model")
 
+app.get('/all', async (req,res) => {
+    try {
+        const data = await Shop.find()
+        res.json({
+            data
+        })
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 app.get('/api/v1/name', async (req,res) => {
     try {
         const {key, page, limit} = req.query
