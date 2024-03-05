@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import { BsSearch } from "react-icons/bs"
-import { Link } from 'react-router-dom';
-import axios from "axios"
+import { Link } from "react-router-dom";
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+
 function intersection(arr1, arr2) {
     const result = [];
     console.log(arr1)
@@ -49,17 +51,24 @@ export default function Search() {
     const [numRatings, setNumRatings] = useState(Number)
     const [location, setLocation] = useState(Number)
     const [checkbox1, setCheckBox1] = useState(false)
+    const [checkboxC1, setCheckBoxC1] = useState(false)
+    const [checkboxC2, setCheckBoxC2] = useState(false)
+    const [cost, setCost] = useState(Number)
     
     useEffect(() => {
         const fetchData = async () => {
             try {
+                let searchResultData = []
                 if (!key.trim()) {
-                    setSearchResult([]);
-                    return;
+                    const all = await axios.get("http://localhost:3001/all");
+                    searchResultData = all.data.data
                 }
-                const searchRes = await axios.get("http://localhost:3001/api/v1/name", { params: { key: key } });
-                // console.log(searchRes);
-                let searchResultData = searchRes.data.data;
+                if (key) {
+                    const searchRes = await axios.get("http://localhost:3001/api/v1/name", { params: { key: key } });
+                    //console.log(searchRes);
+                    searchResultData = searchRes.data.data;
+                }
+                
                 
                 if (rating) {
                     const ratingRes = await axios.get("http://localhost:3001/ratings", { params: { num: rating } });
@@ -88,6 +97,15 @@ export default function Search() {
                         }
                     }
                 }
+                if (cost) {
+                    for (let i = 0; i < searchResultData.length; i++) {
+                        const cur = searchResultData[i].cost
+                        if (cur > cost) {
+                            searchResultData.splice(i, 1)
+                            i--;
+                        }
+                    }
+                }
                 setSearchResult(searchResultData)
                 
                 //console.log(searchResult)
@@ -97,14 +115,14 @@ export default function Search() {
         };
     
         fetchData();
-    }, [key, rating, numRatings, location, checkbox1]);
+    }, [key, rating, numRatings, location, checkbox1, cost, checkboxC1]);
         /*console.log(filter)
         console.log(searchResult)
         const gt = searchResult.filter(element => filter.includes(element))
         console.log(gt)*/
         // To Do: only have the ones that are in both filter and searchresult be displayed
     
-    const handleCheckboxChange = async (distance) => {
+    const handleCheckboxChangeL = async (distance) => {
         setCheckBox1(!checkbox1); // Update checkbox state
         
         // Use the updated checkbox state to determine the location value
@@ -112,7 +130,26 @@ export default function Search() {
         
         setLocation(newLocation); // Set the location state
     }
+
+    const handleCheckboxChangeC1 = async (cost) => {
+        setCheckBoxC1(!checkboxC1); // Update checkbox state
         
+        // Use the updated checkbox state to determine the location value
+        const newCost = checkboxC1 ? 100 : cost; // Change location based on checkbox state
+        
+        setCost(newCost); // Set the location state
+        console.log(cost)
+    }
+    
+    const handleCheckboxChangeC2 = async (cost) => {
+        setCheckBoxC1(!checkboxC2); // Update checkbox state
+        
+        // Use the updated checkbox state to determine the location value
+        const newCost = checkboxC2 ? 100 : cost; // Change location based on checkbox state
+        
+        setCost(newCost); // Set the location state
+        console.log(cost)
+    }
     return (
         <form>
             <div className="search-wrapper">
@@ -120,9 +157,23 @@ export default function Search() {
                     type="checkbox"
                     name="0.5 miles"
                     className="form-control"
-                    onChange={() => handleCheckboxChange(0.5)}
+                    onChange={() => handleCheckboxChangeL(0.5)}
                 />
                 <span>0.5 miles</span>
+                <input
+                    type="checkbox"
+                    name="cost 1"
+                    className="form-control"
+                    onChange={() => handleCheckboxChangeC1(1)}
+                />
+                <span>1 cost</span>
+                <input
+                    type="checkbox"
+                    name="cost 2"
+                    className="form-control"
+                    onChange={() => handleCheckboxChangeC2(2)}
+                />
+                <span>2 cost</span>
                 <div className="form-group">
                     <input
                         type="text"
