@@ -16,7 +16,10 @@ function Login() {
             console.log(result)
             // Direct to homepage if user and password match
             if(result.data === "Correct user and password."){
-                localStorage.setItem('email', email);
+                // localStorage.setItem('email', email);
+                const token = generateToken(20); 
+                localStorage.setItem('token', token);
+                axios.post("http://localhost:3001/startsession", { token, email })
                 navigate("/home")
             // Otherwise send various alert messages if user doesn't exist/password doesn't match
             } else if (result.data === "Password is wrong."){
@@ -28,6 +31,16 @@ function Login() {
         })
         .catch(err => console.log(err))
     }
+
+    const generateToken = (length) => {
+        const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        let token = "";
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            token += characters.charAt(randomIndex);
+        }
+        return token;
+    };
 
     return (
         <div>

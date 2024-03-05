@@ -7,10 +7,19 @@ function Profile() {
 
   useEffect(() => {
     const getInfo = async () => {
-      const email = localStorage.getItem('email');
-      if (email) {
+      // const email = localStorage.getItem('email');
+      // if (email) {
+      //   try {
+      //     const response = await axios.get('http://localhost:3001/profile', { params: { email } });
+      //     setUser(response.data.user);
+      //   } catch (error) {
+      //     console.error('Error fetching user:', error);
+      //   }
+      // }
+      const token = localStorage.getItem('token');
+      if (token) {
         try {
-          const response = await axios.get('http://localhost:3001/profile', { params: { email } });
+          const response = await axios.get('http://localhost:3001/profile', { params: { token } });
           setUser(response.data.user);
         } catch (error) {
           console.error('Error fetching user:', error);
