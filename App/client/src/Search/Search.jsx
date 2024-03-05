@@ -56,7 +56,12 @@ export default function Search() {
     const [checkbox1, setCheckBox1] = useState(false)
     const [checkboxC1, setCheckBoxC1] = useState(false)
     const [checkboxC2, setCheckBoxC2] = useState(false)
+    const [checkboxC3, setCheckBoxC3] = useState(false)
     const [cost, setCost] = useState(Number)
+    const [bathroom, setBathrooms] = useState(false)
+    const [wifi, setWifi] = useState(false)
+    const [study, setStudyability] = useState(false)
+    const [noise, setNoise] = useState("")
     
     useEffect(() => {
         const fetchData = async () => {
@@ -109,6 +114,42 @@ export default function Search() {
                         }
                     }
                 }
+                if (bathroom) {
+                    for (let i = 0; i < searchResultData.length; i++) {
+                        const cur = searchResultData[i].bathrooms
+                        if (cur === 'no') {
+                            searchResultData.splice(i, 1)
+                            i--;
+                        }
+                    }
+                }
+                if (wifi) {
+                    for (let i = 0; i < searchResultData.length; i++) {
+                        const cur = searchResultData[i].wifi
+                        if (cur === 'no') {
+                            searchResultData.splice(i, 1)
+                            i--;
+                        }
+                    }
+                }
+                if (noise !== "") {
+                    for (let i = 0; i < searchResultData.length; i++) {
+                        const cur = searchResultData[i].noise
+                        if (cur !== noise) {
+                            searchResultData.splice(i, 1)
+                            i--;
+                        }
+                    }
+                }
+                if (study) {
+                    for (let i = 0; i < searchResultData.length; i++) {
+                        const cur = searchResultData[i].studyability
+                        if (cur === 'bad') {
+                            searchResultData.splice(i, 1)
+                            i--;
+                        }
+                    }
+                }
                 setSearchResult(searchResultData)
                 
                 //console.log(searchResult)
@@ -118,7 +159,7 @@ export default function Search() {
         };
     
         fetchData();
-    }, [key, rating, numRatings, location, checkbox1, cost, checkboxC1]);
+    }, [key, rating, numRatings, location, checkbox1, cost, checkboxC1, checkboxC2, bathroom, noise, study, wifi]);
         /*console.log(filter)
         console.log(searchResult)
         const gt = searchResult.filter(element => filter.includes(element))
@@ -145,13 +186,41 @@ export default function Search() {
     }
     
     const handleCheckboxChangeC2 = async (cost) => {
-        setCheckBoxC1(!checkboxC2); // Update checkbox state
+        setCheckBoxC2(!checkboxC2); // Update checkbox state
         
         // Use the updated checkbox state to determine the location value
         const newCost = checkboxC2 ? 100 : cost; // Change location based on checkbox state
         
         setCost(newCost); // Set the location state
-        console.log(cost)
+        console.log(newCost)
+    }
+
+    const handleCheckboxChangeC3 = async (cost) => {
+        setCheckBoxC3(!checkboxC3); // Update checkbox state
+        
+        // Use the updated checkbox state to determine the location value
+        const newCost = checkboxC3 ? 100 : cost; // Change location based on checkbox state
+        
+        setCost(newCost); // Set the location state
+        console.log(newCost)
+    }
+
+    const changeBathrooms = async () => {
+        setBathrooms(!bathroom)
+    }
+
+    const changeWifi = async () => {
+        setWifi(!wifi)
+    }
+
+    const changeNoise = async (level) => {
+        const change = noise === level ? "" : level;
+        setNoise(change)
+        //console.log(noise)
+    }
+
+    const changeStudyability = async () => {
+        setStudyability(!study)
     }
     return (
         <form>
@@ -169,14 +238,65 @@ export default function Search() {
                     className="form-control"
                     onChange={() => handleCheckboxChangeC1(1)}
                 />
-                <span>1 cost</span>
+                <span>$</span>
                 <input
                     type="checkbox"
                     name="cost 2"
                     className="form-control"
                     onChange={() => handleCheckboxChangeC2(2)}
                 />
-                <span>2 cost</span>
+                <span>$$</span>
+                <input
+                    type="checkbox"
+                    name="cost 2"
+                    className="form-control"
+                    onChange={() => handleCheckboxChangeC2(3)}
+                />
+                <span>$$$</span>
+                <input
+                    type="checkbox"
+                    name="studyability"
+                    className="form-control"
+                    onChange={() => changeStudyability()}
+                />
+                <span>Studyability</span>
+                <input
+                    type="checkbox"
+                    name="bathrooms"
+                    className="form-control"
+                    onChange={() => changeBathrooms()}
+                />
+                <span>Bathrooms</span>
+                <input
+                    type="checkbox"
+                    name="wifi"
+                    className="form-control"
+                    onChange={() => changeWifi()}
+                />
+                <span>Wifi</span>
+                <br/>
+                <strong>Noise Level:</strong>
+                <input
+                    type="checkbox"
+                    name="noise-q"
+                    className="form-control"
+                    onChange={() => changeNoise('quiet')}
+                />
+                <span>Quiet</span>
+                <input
+                    type="checkbox"
+                    name="noise-m"
+                    className="form-control"
+                    onChange={() => changeNoise('moderate')}
+                />
+                <span>Moderate</span>
+                <input
+                    type="checkbox"
+                    name="noise-l"
+                    className="form-control"
+                    onChange={() => changeNoise('loud')}
+                />
+                <span>Loud</span>
                 <div className="form-group">
                     <input
                         type="text"
