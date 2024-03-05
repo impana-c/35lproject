@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { BsSearch } from "react-icons/bs"
+import { Link } from 'react-router-dom';
 import axios from "axios"
 function intersection(arr1, arr2) {
     const result = [];
@@ -57,7 +58,7 @@ export default function Search() {
                     return;
                 }
                 const searchRes = await axios.get("http://localhost:3001/api/v1/name", { params: { key: key } });
-                //console.log(searchRes);
+                // console.log(searchRes);
                 let searchResultData = searchRes.data.data;
                 
                 if (rating) {
@@ -147,13 +148,33 @@ export default function Search() {
                     />
                 </div>
                 {searchResult && searchResult.length > 0 && (
+                    // <div className="search-result">
+                    //     {searchResult.map(shop => (
+                    //         <div className="result-item" key={shop._id}>
+                    //             <div>
+                    //                 {/* should try to displaty both of these on same line */}
+                    //                 <p className="name">{shop.name}, </p>
+                    //                 <p>{shop.location.address}</p> 
+                    //             </div>
+                    //         </div>    
+                    //     ))}
+                    // </div>
                     <div className="search-result">
                         {searchResult.map(shop => (
                             <div className="result-item" key={shop._id}>
-                                <div>
-                                    <p className="name">{shop.name}</p>
-                                    <p>{shop.location.address}</p>
-                                </div>
+                                {/* Wrap the result item in a Link component */}
+                                <Link
+                                    to="/searchresult" 
+                                    onClick={() => {
+                                        // Store the name in local storage before navigating
+                                        localStorage.setItem('searchresult', shop.name);
+                                        console.log(localStorage.getItem('searchresult'))
+                                    }}
+                                >
+                                    <div>
+                                        <p className="name">{shop.name}, {shop.location.address}</p>
+                                    </div>
+                                </Link>
                             </div>    
                         ))}
                     </div>

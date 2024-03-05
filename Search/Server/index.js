@@ -13,7 +13,7 @@ connectMongoDB()
 
 app.use(express.json())
 
-const Shop = require("./model/shop_model")
+const Shop = require("./model/shop_model.js")
 
 app.get('/api/v1/name', async (req,res) => {
     try {
@@ -77,6 +77,17 @@ app.get('/location', async (req,res) => {
         console.log(error)
     }
 })
+
+app.get('/searchresult', async (req, res) => {
+    try {
+      const { name } = req.query;
+      const shop = await Shop.findOne({ name: name });
+      res.json({ shop });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 const PORT = process.env.PORT || 3001
 

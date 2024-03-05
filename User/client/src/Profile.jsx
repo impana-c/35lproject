@@ -29,8 +29,8 @@ function Profile() {
           <p>Name: {user.name}</p>
           <p>Email: {user.email}</p>
           <p>Location: UCLA</p>
-          <p>Class of: <i>insert year</i></p>
-          <p>Other preferences: <i>insert other preferences</i></p>
+          {/* <p>Class of: <i>insert year</i></p>
+          <p>Other preferences: <i>insert other preferences</i></p> */}
         </div>
       ) : ( <p>Loading...</p> )}
       <Link to="/updateprofile"> <button>Update Profile</button> </Link>
