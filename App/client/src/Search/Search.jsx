@@ -176,7 +176,58 @@ export default function Search() {
                     className="form-control"
                     onChange={() => handleCheckboxChangeC2(2)}
                 />
-                <span>2 cost</span>
+                <span>$$</span>
+                <input
+                    type="checkbox"
+                    name="cost 2"
+                    className="form-control"
+                    onChange={() => handleCheckboxChangeC3(3)}
+                />
+                <span>$$$</span>
+                <input
+                    type="checkbox"
+                    name="studyability"
+                    className="form-control"
+                    onChange={() => changeStudyability()}
+                />
+                <span>Studyability</span>
+                <input
+                    type="checkbox"
+                    name="bathrooms"
+                    className="form-control"
+                    onChange={() => changeBathrooms()}
+                />
+                <span>Bathrooms</span>
+                <input
+                    type="checkbox"
+                    name="wifi"
+                    className="form-control"
+                    onChange={() => changeWifi()}
+                />
+                <span>Wifi</span>
+                <br/>
+                <strong>Noise Level:</strong>
+                <input
+                    type="checkbox"
+                    name="noise-q"
+                    className="form-control"
+                    onChange={() => changeNoise('quiet')}
+                />
+                <span>Quiet</span>
+                <input
+                    type="checkbox"
+                    name="noise-m"
+                    className="form-control"
+                    onChange={() => changeNoise('moderate')}
+                />
+                <span>Moderate</span>
+                <input
+                    type="checkbox"
+                    name="noise-l"
+                    className="form-control"
+                    onChange={() => changeNoise('loud')}
+                />
+                <span>Loud</span>
                 <div className="form-group">
                     <input
                         type="text"
