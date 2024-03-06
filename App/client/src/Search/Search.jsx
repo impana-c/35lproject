@@ -250,7 +250,7 @@ export default function Search() {
                     type="checkbox"
                     name="cost 2"
                     className="form-control"
-                    onChange={() => handleCheckboxChangeC2(3)}
+                    onChange={() => handleCheckboxChangeC3(3)}
                 />
                 <span>$$$</span>
                 <input
