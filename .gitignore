@@ -1,2 +1,3 @@
-/node_modules
+coffee-shop-reviews/client/node_modules
+coffee-shop-reviews/node_modules
 .env
