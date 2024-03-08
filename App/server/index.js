@@ -40,7 +40,7 @@ app.post('/login', (req,res)=>{
 
                 ////////////////////////////////////////////////
                 // DELETE LATER (JUST TO TEST VISITED)
-                user.visited.push("65e7f45a0447248e0f6eae6c");
+                user.visited.unshift("65e7f45a0447248e0f6eae6d");
                 user.save();
                 ////////////////////////////////////////////////
             } else {
