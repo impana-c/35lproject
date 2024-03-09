@@ -241,8 +241,10 @@ app.post('/reviews', async (req, res) => {
         await shop.save();
     }
     user.visited.unshift(shop._id);
-    shop.averageRating = (shop.averageRating * shop.numRatings + rating) / (shop.numRatings + 1)
+    let newAverageRating = ((shop.averageRating * shop.numRatings) + rating) / (shop.numRatings + 1);
+    shop.averageRating = +newAverageRating.toFixed(2);
     shop.numRatings ++;
+
     await shop.save();
     user.save();
   });

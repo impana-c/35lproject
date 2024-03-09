@@ -32,10 +32,14 @@ const ReviewForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (rating < 1 || rating > 5){
+        alert("Rating is outside of range, please try again.")
+        return; }
       const res = await axios.post('http://localhost:3001/reviews', { coffeeShopName, rating, review, userID: user._id, shopID: shop._id });
       console.log(res.data);
 
       console.log(coffeeShopName);
+     
       setRating('');
       setReview('');
     } catch (err) {
