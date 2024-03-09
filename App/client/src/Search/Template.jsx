@@ -26,7 +26,6 @@ function Template(){
         getInfo();
       }, []);
     
-
     return (
     <div>
         <h2><center>{localStorage.getItem('searchresult')}</center></h2>

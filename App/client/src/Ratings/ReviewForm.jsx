@@ -36,7 +36,6 @@ const ReviewForm = () => {
       const res = await axios.post('http://localhost:3001/reviews', { coffeeShopName, rating, review, userID: user._id, shopID: shop._id });
       console.log(res.data);
       console.log(coffeeShopName);
-      navigate("/searchresult")
     } catch (err) {
       console.error(err);
     }
@@ -74,7 +73,6 @@ const ReviewForm = () => {
 
         </div>
       ) : ( <p>Loading...</p> )}
-
     </div>
   );
 };
