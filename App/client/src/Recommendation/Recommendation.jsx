@@ -9,10 +9,9 @@ function Recommendation() {
         const getRecommendation = async () => {
             try {
               const response = await axios.get('http://localhost:3001/toprated');
-              const searchResult = response.data.data
-              console.log(response)
+              const searchResult = response.data.result
+              console.log(searchResult)
               setRecommend(searchResult);
-              
             } catch (error) {
               console.error('Error fetching shop:', error);
           }
@@ -24,6 +23,7 @@ function Recommendation() {
       return (
         <form>
             <div className="search-wrapper">
+            <h1>Top Rated</h1>
                 {recommend && recommend.length > 0 && (
                     // <div className="search-result">
                     //     {searchResult.map(shop => (
@@ -54,6 +54,7 @@ function Recommendation() {
                                 </Link>
                             </div>    
                         ))}
+                        <Link to="/home"><button>Back to home...</button></Link>
                     </div>
                 )}
             </div>
