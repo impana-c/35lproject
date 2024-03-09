@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ReviewForm from '../Ratings/ReviewForm';
+import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api';
+
+const libraries = ['places'];
 
 function Template(){
     const [shop, setShop] = useState(null);
@@ -25,15 +28,46 @@ function Template(){
     
         getInfo();
       }, []);
+
+      const mapContainerStyle = {
+        height: '400px',
+        width: '50%'
+      };
+      const center = {
+        lat: shop && shop.location.coordinates[0],
+        lng: shop && shop.location.coordinates[1]
+      };
+      const { isLoaded, loadError } = useLoadScript({
+        googleMapsApiKey: 'YOURAPIKEY', //CHANGE
+        libraries,
+      });
+      if (loadError) {
+        return <div>Error loading maps</div>;
+      }
+    
+      if (!isLoaded) {
+        return <div>Loading maps</div>;
+      }
     
     return (
     <div>
         <h2><center>{localStorage.getItem('searchresult')}</center></h2>
       {shop ? (
         <div>
-            <p>Location: {shop.location.address}</p>
-            <p>Average rating: {shop.averageRating}</p>
-            <p>Cost: {shop.cost}</p> {/* replace with number of $ */}
+            <span>
+              <div>
+                <p>Location: {shop.location.address}</p>
+                <p>Average rating: {shop.averageRating}</p>
+                <p>Cost: {shop.cost}</p> {/* replace with number of $ */}
+              </div>
+              <GoogleMap
+                mapContainerStyle={mapContainerStyle}
+                zoom={17}
+                center={center}
+              >
+                <MarkerF position={center}/>
+              </GoogleMap>
+            </span>
 
             <h3>Features:</h3>
             <li>Bathrooms: {shop.bathrooms}</li>

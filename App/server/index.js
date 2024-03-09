@@ -165,9 +165,7 @@ app.get('/api/v1/name', async (req,res) => {
             ]
         } : {}
         const data = await Shop.find(search).limit(limit)
-        res.json({
-            data
-        })
+        res.json({data})
     } catch (error) {
         console.log(error)
     }
