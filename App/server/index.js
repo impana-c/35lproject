@@ -232,7 +232,8 @@ app.get('/searchresult', async (req, res) => {
 app.post('/reviews', async (req, res) => {
     const { coffeeShopName, rating, review, userID, shopID } = req.body; // Assuming these fields are sent in the request body
     const user = await UserModel.findById(userID);
-    const reviewtoadd = await Review.create({coffeeShopName, rating, review});
+    const username = user.name
+    const reviewtoadd = await Review.create({username, coffeeShopName, rating, review});
     // const reviewtoaadd = await Review.findOne({coffeeShopName: coffeeShopName});
     const shop = await Shop.findById(shopID);
     if (shop) {
@@ -240,7 +241,9 @@ app.post('/reviews', async (req, res) => {
         await shop.save();
     }
     user.visited.unshift(shop._id);
-    shop.save();
+    shop.averageRating = (shop.averageRating * shop.numRatings + rating) / (shop.numRatings + 1)
+    shop.numRatings ++;
+    await shop.save();
     user.save();
   });
 
