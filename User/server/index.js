@@ -1,10 +1,8 @@
+const PORT = 3001;
 const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
-const UserModel = require("./model/UserModel.js")
-const Shop = require("./model/ShopModel.js")
-const Session = require("./model/SessionModel.js")
-require("dotenv").config()
+const UserModel = require("./UserModel")
 
 const app = express()
 app.use(express.json())
@@ -18,9 +16,8 @@ app.get('/', (req, res) => {
 
 app.get('/profile', async (req, res) => {
     try {
-      const { token } = req.query;
-      const session = await Session.findOne({ token: token });
-      const user = await UserModel.findOne({ email: session.email });
+      const { email } = req.query;
+      const user = await UserModel.findOne({ email: email });
       res.json({ user });
     } catch (err) {
       console.error(err);
@@ -44,22 +41,6 @@ app.post('/login', (req,res)=>{
         }
     })
 })
-
-app.post('/startsession', (req,res)=>{
-    const {token,email} = req.body;
-    Session.create(req.body)
-})
-
-app.post('/endsession', (req, res) => {
-    const { token } = req.body;
-    Session.deleteOne({ token: token })
-        .then(result => {})
-        .catch(error => {
-            console.error('Error ending session:', error);
-            res.status(500).json({ error: 'Internal server error.' });
-        });
-});
-
 
 app.post('/signup',(req,res)=>{
     const {name,email,password,password2} = req.body;
@@ -141,108 +122,6 @@ app.post('/updateprofile',(req,res)=>{
     }
 })
 
-app.get('/all', async (req,res) => {
-    try {
-        const data = await Shop.find()
-        res.json({
-            data
-        })
-    } catch (error) {
-        console.log(error)
-    }
-})
-
-app.get('/api/v1/name', async (req,res) => {
-    try {
-        const {key, page, limit} = req.query
-        //const skip = (page - 1) * limit
-        const search = key ? {
-            "$or": [
-                {name: {$regex: key, $options: "i"}}
-            ]
-        } : {}
-        const data = await Shop.find(search).limit(limit)
-        res.json({
-            data
-        })
-    } catch (error) {
-        console.log(error)
-    }
-})
-
-app.get('/ratings', async (req,res) => {
-    try {
-        const {num} = req.query
-        const filter = {
-            averageRating: { $gt: num }
-        } 
-        const data = await Shop.find(filter)
-        res.json({
-            data
-        })
-    } catch (error) {
-        console.log(error)
-    }
-})
-
-app.get('/numRatings', async (req,res) => {
-    try {
-        const {num} = req.query
-        const filter = {
-            numRatings: { $gt: num }
-        } 
-        const data = await Shop.find(filter)
-        res.json({
-            data
-        })
-    } catch (error) {
-        console.log(error)
-    }
-})
-
-app.get('/location', async (req,res) => {
-    try {
-        const {num} = req.query
-        const filter = {
-            numRatings: { $gt: num }
-        } 
-        const data = await Shop.find(filter)
-        res.json({
-            data
-        })
-    } catch (error) {
-        console.log(error)
-    }
-})
-
-app.get('/searchresult', async (req, res) => {
-    try {
-      const { name } = req.query;
-      const shop = await Shop.findOne({ name: name });
-      res.json({ shop });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-app.get('/toprated', async (req, res) => {
-    try {
-        const result = await Shop.aggregate([
-            { $sort: { averageRating: -1 } },
-            { $limit: 5 }
-        ]);
-        res.json({ result });
-    } catch (error) {
-        console.error("Error fetching top rated shops:", error);
-        res.status(500).json({ error: "Internal server error" });
-    }
-});
-
-
-
-const PORT = process.env.PORT || 3001
-
 app.listen(PORT, () => {
-    console.log("Server is running PORT", PORT)
+    console.log("server is running")
 })

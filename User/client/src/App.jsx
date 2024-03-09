@@ -1,16 +1,12 @@
 import { useState } from 'react'
-// import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
-import Signup from './Signin/Signup'
-import Login from './Signin/Login' 
+import Signup from './Signup'
+import Login from './Login'
 import Homepage from './Homepage'
-import Profile from './Profile/Profile'
-import UpdateProfile from './Profile/UpdateProfile'
-import Search from './Search/Search';
-import Template from './Search/Template';
-import Recommend from './Recommendation/Recommendation';
-// import './App.css'
+import Profile from './Profile'
+import UpdateProfile from './UpdateProfile'
 
 function App() {
   return (
@@ -23,9 +19,6 @@ function App() {
         <Route path='/home' element={<Homepage/>}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/updateprofile' element={<UpdateProfile/>}/>
-        {/* <Route path='/search' element={<Search/>}/> */}
-        <Route path='/searchresult' element={<Template/>}/>
-        <Route path='/recommend' element={<Recommend/>}/>
       </Routes>
     </BrowserRouter>
     </>

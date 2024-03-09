@@ -3,9 +3,6 @@ import { BsSearch } from "react-icons/bs"
 import { Link } from "react-router-dom";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
-// import '../App.css'
-// import '../index.css'
-
 
 function intersection(arr1, arr2) {
     const result = [];
@@ -56,14 +53,8 @@ export default function Search() {
     const [checkbox1, setCheckBox1] = useState(false)
     const [checkboxC1, setCheckBoxC1] = useState(false)
     const [checkboxC2, setCheckBoxC2] = useState(false)
-    const [checkboxC3, setCheckBoxC3] = useState(false)
     const [cost, setCost] = useState(Number)
-    const [bathroom, setBathrooms] = useState(false)
-    const [wifi, setWifi] = useState(false)
-    const [study, setStudyability] = useState(false)
-    const [noise, setNoise] = useState("")
     
-    //useEffect is used for side effects like data fetching, subscriptions, etc
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -115,42 +106,6 @@ export default function Search() {
                         }
                     }
                 }
-                if (bathroom) {
-                    for (let i = 0; i < searchResultData.length; i++) {
-                        const cur = searchResultData[i].bathrooms
-                        if (cur === 'no') {
-                            searchResultData.splice(i, 1)
-                            i--;
-                        }
-                    }
-                }
-                if (wifi) {
-                    for (let i = 0; i < searchResultData.length; i++) {
-                        const cur = searchResultData[i].wifi
-                        if (cur === 'no') {
-                            searchResultData.splice(i, 1)
-                            i--;
-                        }
-                    }
-                }
-                if (noise !== "") {
-                    for (let i = 0; i < searchResultData.length; i++) {
-                        const cur = searchResultData[i].noise
-                        if (cur !== noise) {
-                            searchResultData.splice(i, 1)
-                            i--;
-                        }
-                    }
-                }
-                if (study) {
-                    for (let i = 0; i < searchResultData.length; i++) {
-                        const cur = searchResultData[i].studyability
-                        if (cur === 'bad') {
-                            searchResultData.splice(i, 1)
-                            i--;
-                        }
-                    }
-                }
                 setSearchResult(searchResultData)
                 
                 //console.log(searchResult)
@@ -160,7 +115,7 @@ export default function Search() {
         };
     
         fetchData();
-    }, [key, rating, numRatings, location, checkbox1, cost, checkboxC1, checkboxC2, bathroom, noise, study, wifi]);
+    }, [key, rating, numRatings, location, checkbox1, cost, checkboxC1]);
         /*console.log(filter)
         console.log(searchResult)
         const gt = searchResult.filter(element => filter.includes(element))
@@ -187,41 +142,13 @@ export default function Search() {
     }
     
     const handleCheckboxChangeC2 = async (cost) => {
-        setCheckBoxC2(!checkboxC2); // Update checkbox state
+        setCheckBoxC1(!checkboxC2); // Update checkbox state
         
         // Use the updated checkbox state to determine the location value
         const newCost = checkboxC2 ? 100 : cost; // Change location based on checkbox state
         
         setCost(newCost); // Set the location state
-        console.log(newCost)
-    }
-
-    const handleCheckboxChangeC3 = async (cost) => {
-        setCheckBoxC3(!checkboxC3); // Update checkbox state
-        
-        // Use the updated checkbox state to determine the location value
-        const newCost = checkboxC3 ? 100 : cost; // Change location based on checkbox state
-        
-        setCost(newCost); // Set the location state
-        console.log(newCost)
-    }
-
-    const changeBathrooms = async () => {
-        setBathrooms(!bathroom)
-    }
-
-    const changeWifi = async () => {
-        setWifi(!wifi)
-    }
-
-    const changeNoise = async (level) => {
-        const change = noise === level ? "" : level;
-        setNoise(change)
-        //console.log(noise)
-    }
-
-    const changeStudyability = async () => {
-        setStudyability(!study)
+        console.log(cost)
     }
     return (
         <form>
@@ -239,65 +166,14 @@ export default function Search() {
                     className="form-control"
                     onChange={() => handleCheckboxChangeC1(1)}
                 />
-                <span>$</span>
+                <span>1 cost</span>
                 <input
                     type="checkbox"
                     name="cost 2"
                     className="form-control"
                     onChange={() => handleCheckboxChangeC2(2)}
                 />
-                <span>$$</span>
-                <input
-                    type="checkbox"
-                    name="cost 2"
-                    className="form-control"
-                    onChange={() => handleCheckboxChangeC3(3)}
-                />
-                <span>$$$</span>
-                <input
-                    type="checkbox"
-                    name="studyability"
-                    className="form-control"
-                    onChange={() => changeStudyability()}
-                />
-                <span>Studyability</span>
-                <input
-                    type="checkbox"
-                    name="bathrooms"
-                    className="form-control"
-                    onChange={() => changeBathrooms()}
-                />
-                <span>Bathrooms</span>
-                <input
-                    type="checkbox"
-                    name="wifi"
-                    className="form-control"
-                    onChange={() => changeWifi()}
-                />
-                <span>Wifi</span>
-                <br/>
-                <strong>Noise Level:</strong>
-                <input
-                    type="checkbox"
-                    name="noise-q"
-                    className="form-control"
-                    onChange={() => changeNoise('quiet')}
-                />
-                <span>Quiet</span>
-                <input
-                    type="checkbox"
-                    name="noise-m"
-                    className="form-control"
-                    onChange={() => changeNoise('moderate')}
-                />
-                <span>Moderate</span>
-                <input
-                    type="checkbox"
-                    name="noise-l"
-                    className="form-control"
-                    onChange={() => changeNoise('loud')}
-                />
-                <span>Loud</span>
+                <span>2 cost</span>
                 <div className="form-group">
                     <input
                         type="text"
@@ -307,7 +183,6 @@ export default function Search() {
                         onChange={(e) => setKey(e.target.value)}
                     />
                     <button className="search-btn"><BsSearch /></button>
-                    <li> Enter rating:
                     <input
                         type="number"
                         className="form-control"
@@ -315,8 +190,6 @@ export default function Search() {
                         value={rating}
                         onChange={(c) => setRating(c.target.value)}
                     />
-                    </li>
-                    <li> Enter minimum number of ratings:
                     <input
                         type="number"
                         className="form-control"
@@ -324,7 +197,6 @@ export default function Search() {
                         value={numRatings}
                         onChange={(d) => setNumRatings(d.target.value)}
                     />
-                    </li>
                 </div>
                 {searchResult && searchResult.length > 0 && (
                     // <div className="search-result">
