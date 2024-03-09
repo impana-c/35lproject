@@ -43,20 +43,14 @@ function Template(){
             <li>Studyability: {shop.studyability}</li>
 
             <h3><center>Ratings & Reviews</center></h3>
-            <h4>Add a Review</h4>
-            {/* {user ? (
-              <ul>User associated with review: {user.name}</ul> //change this text later for frontend
-            ) : (<ul>Loading...</ul>) } */}
-            {/* ADD RATING COMPONENT HERE */}
             <ReviewForm/>
     
-            <h4>Past Reviews</h4>
         </div>
       ) : ( <p>Loading...</p> )}
       
       <Link to="/home"><button>Back to home...</button></Link>
       <br/>
-      <p><center><small>Note: much of the data on this page was taken from 'yelp.com'.</small></center></p>
+      <center><small>Note: much of the data on this page was taken from 'yelp.com'.</small></center>
     </div>
   );
 }

@@ -5,6 +5,7 @@ const ReviewSchema = new mongoose.Schema({
   //  // ref: 'Shop', // Reference to the Shop model
   //   required: true
   // },//
+    username: String,
     coffeeShopName: String,
     rating: Number,
     review: String,
