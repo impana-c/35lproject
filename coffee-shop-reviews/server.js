@@ -1,3 +1,4 @@
+const Review = require("./models/ReviewModel.js")
 const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
@@ -13,25 +14,13 @@ mongoose.connect("mongodb://127.0.0.1:27017/database")
   .catch(err => console.log(err));
 
 
-const ReviewSchema = new mongoose.Schema({
-  coffeeShopName: String,
-  rating: Number,
-  review: String,
-});
 
 
-const Review = mongoose.model('Review', ReviewSchema);
 
-
-app.post('/reviews', async (req, res) => {
-  const newReview = new Review(req.body);
-  try {
-    const savedReview = await newReview.save();
-    res.status(201).send(savedReview);
-  } catch (err) {
-    res.status(400).send(err);
-  }
-});
+  app.post('/reviews', async (req, res) => {
+    const { coffeeShopName, rating, review } = req.body; // Assuming these fields are sent in the request body
+    Review.create(req.body)
+  });
 
 const port = 3001
 app.listen(port, () => {

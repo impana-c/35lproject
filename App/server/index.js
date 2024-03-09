@@ -4,6 +4,8 @@ const cors = require("cors")
 const UserModel = require("./model/UserModel.js")
 const Shop = require("./model/ShopModel.js")
 const Session = require("./model/SessionModel.js")
+const Review = require("./model/ReviewModel.js");
+
 require("dotenv").config()
 
 const app = express()
@@ -226,6 +228,10 @@ app.get('/searchresult', async (req, res) => {
     }
 });
 
+app.post('/reviews', async (req, res) => {
+    const { coffeeShopName, rating, review } = req.body; // Assuming these fields are sent in the request body
+    Review.create(req.body)
+  });
 
 const PORT = process.env.PORT || 3001
 

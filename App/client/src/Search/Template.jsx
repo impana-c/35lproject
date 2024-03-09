@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import ReviewForm from '../Ratings/ReviewForm';
 
 function Template(){
     const [shop, setShop] = useState(null);
@@ -42,6 +43,7 @@ function Template(){
 
         </div>
       ) : ( <p>Loading...</p> )}
+      <ReviewForm/>
       <Link to="/home"><button>Back to home...</button></Link>
     </div>
   );

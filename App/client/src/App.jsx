@@ -9,6 +9,7 @@ import Profile from './Profile/Profile'
 import UpdateProfile from './Profile/UpdateProfile'
 import Search from './Search/Search';
 import Template from './Search/Template';
+import ReviewForm from './Ratings/ReviewForm';
 // import './App.css'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path='/updateprofile' element={<UpdateProfile/>}/>
         {/* <Route path='/search' element={<Search/>}/> */}
         <Route path='/searchresult' element={<Template/>}/>
+        <Route path='/reviews' element={<ReviewForm/>}/>
       </Routes>
     </BrowserRouter>
     </>
