@@ -20,13 +20,13 @@ app.get('/', (req, res) => {
 
 app.get('/profile', async (req, res) => {
     try {
-      const { token } = req.query;
-      const session = await Session.findOne({ token: token });
-      const user = await UserModel.findOne({ email: session.email });
-      res.json({ user });
+        const { token } = req.query;
+        const session = await Session.findOne({ token: token });
+        const user = await UserModel.findOne({ email: session.email }).populate('visited');
+        res.json({ user });
     } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Internal Server Error' });
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
@@ -34,10 +34,17 @@ app.post('/login', (req,res)=>{
     const {email,password} = req.body;
     // Find corresponding user object associated with email
     UserModel.findOne({email:email})
+
     .then(user=>{
         if (user){ // Once a user is found
             if (user.password === password){ // Check that passwords align
                 res.json("Correct user and password.")
+
+                ////////////////////////////////////////////////
+                // DELETE LATER (JUST TO TEST VISITED)
+                user.visited.unshift("65e7f45a0447248e0f6eae6d");
+                user.save();
+                ////////////////////////////////////////////////
             } else {
                 res.json("Password is wrong.")
             }
@@ -228,11 +235,14 @@ app.get('/searchresult', async (req, res) => {
     }
 });
 
+<<<<<<< HEAD
 app.post('/reviews', async (req, res) => {
     const { coffeeShopName, rating, review } = req.body; // Assuming these fields are sent in the request body
     Review.create(req.body)
   });
 
+=======
+>>>>>>> main
 const PORT = process.env.PORT || 3001
 
 app.listen(PORT, () => {

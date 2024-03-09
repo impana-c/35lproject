@@ -19,5 +19,4 @@ const shopSchema = new mongoose.Schema(
     }
 )
 
-//module.exports = mongoose.model("Book", bookSchema)
 module.exports = mongoose.model("Shop", shopSchema, "coffee_shops")
