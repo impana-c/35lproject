@@ -44,16 +44,16 @@ function Template(){
 
             <h3><center>Ratings & Reviews</center></h3>
             <h4>Add a Review</h4>
-            {user ? (
+            {/* {user ? (
               <ul>User associated with review: {user.name}</ul> //change this text later for frontend
-            ) : (<ul>Loading...</ul>) }
+            ) : (<ul>Loading...</ul>) } */}
             {/* ADD RATING COMPONENT HERE */}
-            <p>TO BE IMPLEMENTED</p>
+            <ReviewForm/>
     
             <h4>Past Reviews</h4>
         </div>
       ) : ( <p>Loading...</p> )}
-      <ReviewForm/>
+      
       <Link to="/home"><button>Back to home...</button></Link>
       <br/>
       <p><center><small>Note: much of the data on this page was taken from 'yelp.com'.</small></center></p>

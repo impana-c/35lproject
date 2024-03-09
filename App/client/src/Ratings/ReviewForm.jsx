@@ -1,37 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const ReviewForm = () => {
   const [coffeeShopName, setCoffeeShopName] = useState('');
   const [rating, setRating] = useState('');
   const [review, setReview] = useState('');
-  // const [shop, setShop] = useState(null);
+  const [shop, setShop] = useState(null);
+  const [user, setUser] = useState(null);
+  const userSession = localStorage.getItem('token');
 
-  // useEffect(() => {
-  //   const getInfo = async () => {
-  //     const shop = localStorage.getItem('searchresult');
-  //     if (shop) {
-  //       try {
-  //         const response = await axios.get('http://localhost:3001/searchresult', { params: { name: shop } });
-  //         setShop(response.data.shop);
-  //         setCoffeeShopName(shop.name);
-  //         console.log(coffeeShopName);
-  //       } catch (error) {
-  //         console.error('Error fetching shop:', error);
-  //       }
-  //     }
-  //   };
-
-  //   getInfo();
-  // }, []);
+  useEffect(() => {
+      const getInfo = async () => {
+        const shop = localStorage.getItem('searchresult');
+        if (shop) {
+          try {
+            const response = await axios.get('http://localhost:3001/searchresult', { params: { name: shop } });
+            setShop(response.data.shop);
+            setCoffeeShopName(response.data.shop.name);
+            const response2 = await axios.get('http://localhost:3001/profile', { params: { token: userSession } });
+            setUser(response2.data.user);
+          } catch (error) {
+            console.error('Error fetching shop:', error);
+          }
+        }
+      };
+  
+      getInfo();
+    }, []);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3001/reviews', { coffeeShopName, rating, review });
+      const res = await axios.post('http://localhost:3001/reviews', { coffeeShopName, rating, review, userID: user._id, shopID: shop._id });
       console.log(res.data);
-      // Clear form fields after submission
-      setCoffeeShopName('');
+
+      console.log(coffeeShopName);
       setRating('');
       setReview('');
     } catch (err) {
@@ -42,10 +46,13 @@ const ReviewForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <h2>Submit a Review</h2>
-      <div>
+      {user ? (
+              <ul>User associated with review: {user.name}</ul> //change this text later for frontend
+            ) : (<ul>Loading...</ul>) }
+      {/* <div>
         <label>Coffee Shop Name:</label>
         <input type="text" value={coffeeShopName} onChange={(e) => setCoffeeShopName(e.target.value)} />
-      </div>
+      </div> */}
       <div>
         <label>Rating:</label>
         <input type="number" value={rating} onChange={(e) => setRating(e.target.value)} />
