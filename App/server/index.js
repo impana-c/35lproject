@@ -4,6 +4,8 @@ const cors = require("cors")
 const UserModel = require("./model/UserModel.js")
 const Shop = require("./model/ShopModel.js")
 const Session = require("./model/SessionModel.js")
+const Review = require("./model/ReviewModel.js");
+
 require("dotenv").config()
 
 const app = express()
@@ -18,13 +20,13 @@ app.get('/', (req, res) => {
 
 app.get('/profile', async (req, res) => {
     try {
-      const { token } = req.query;
-      const session = await Session.findOne({ token: token });
-      const user = await UserModel.findOne({ email: session.email });
-      res.json({ user });
+        const { token } = req.query;
+        const session = await Session.findOne({ token: token });
+        const user = await UserModel.findOne({ email: session.email }).populate('visited');
+        res.json({ user });
     } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Internal Server Error' });
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
@@ -32,6 +34,7 @@ app.post('/login', (req,res)=>{
     const {email,password} = req.body;
     // Find corresponding user object associated with email
     UserModel.findOne({email:email})
+
     .then(user=>{
         if (user){ // Once a user is found
             if (user.password === password){ // Check that passwords align
@@ -218,7 +221,7 @@ app.get('/location', async (req,res) => {
 app.get('/searchresult', async (req, res) => {
     try {
       const { name } = req.query;
-      const shop = await Shop.findOne({ name: name });
+      const shop = await Shop.findOne({ name: name }).populate('ratings');
       res.json({ shop });
     } catch (err) {
       console.error(err);
@@ -240,6 +243,29 @@ app.get('/toprated', async (req, res) => {
 });
 
 
+app.post('/reviews', async (req, res) => {
+    const { coffeeShopName, rating, review, userID, shopID } = req.body; // Assuming these fields are sent in the request body
+    const user = await UserModel.findById(userID);
+    const username = user.name ;
+    const reviewtoadd = await Review.create({username, coffeeShopName, rating, review});
+    // const reviewtoaadd = await Review.findOne({coffeeShopName: coffeeShopName});
+    const shop = await Shop.findById(shopID);
+    if (shop) {
+        shop.ratings instanceof Array ? shop.ratings.unshift(reviewtoadd._id) : shop.ratings = [reviewtoadd._id];
+        await shop.save();
+    }
+    user.visited.unshift(shop._id);
+    let newSumRatings = shop.averageRating * shop.numRatings;
+    //console.log(newSumRatings);
+    newSumRatings = newSumRatings + Number(rating);
+    //console.log(newSumRatings);
+    shop.numRatings++;
+    shop.averageRating = newSumRatings / shop.numRatings;
+    shop.averageRating = +shop.averageRating.toFixed(2);
+
+    await shop.save();
+    user.save();
+  });
 
 const PORT = process.env.PORT || 3001
 

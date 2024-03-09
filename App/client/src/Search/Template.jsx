@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import ReviewForm from '../Ratings/ReviewForm';
 
 function Template(){
     const [shop, setShop] = useState(null);
+    const [user, setUser] = useState(null);
+    const userSession = localStorage.getItem('token');
 
     useEffect(() => {
         const getInfo = async () => {
@@ -12,6 +15,8 @@ function Template(){
             try {
               const response = await axios.get('http://localhost:3001/searchresult', { params: { name: shop } });
               setShop(response.data.shop);
+              const response2 = await axios.get('http://localhost:3001/profile', { params: { token: userSession } });
+              setUser(response2.data.user);
             } catch (error) {
               console.error('Error fetching shop:', error);
             }
@@ -21,7 +26,6 @@ function Template(){
         getInfo();
       }, []);
     
-
     return (
     <div>
         <h2><center>{localStorage.getItem('searchresult')}</center></h2>
@@ -37,12 +41,15 @@ function Template(){
             <li>Noise: {shop.noise}</li>
             <li>Studyability: {shop.studyability}</li>
 
-            <h3><center>Rating History</center></h3>
-            <p>TO BE IMPLEMENTED</p>
-
+            <h3><center>Ratings & Reviews</center></h3>
+            <ReviewForm/>
+    
         </div>
       ) : ( <p>Loading...</p> )}
+      
       <Link to="/home"><button>Back to home...</button></Link>
+      <br/>
+      <center><small>Note: much of the data on this page was taken from 'yelp.com'.</small></center>
     </div>
   );
 }

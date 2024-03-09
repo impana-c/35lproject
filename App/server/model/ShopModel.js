@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-
+const Review = require("./ReviewModel");
 const Schema = mongoose.Schema
 const shopSchema = new mongoose.Schema(
     {
@@ -15,9 +15,8 @@ const shopSchema = new mongoose.Schema(
         wifi: {type: String},
         noise: {type: String},
         studyability: {type:String},
-        ratings: {type: Array}
+        ratings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
     }
 )
 
-//module.exports = mongoose.model("Book", bookSchema)
 module.exports = mongoose.model("Shop", shopSchema, "coffee_shops")
