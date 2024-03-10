@@ -68,13 +68,17 @@ const ReviewForm = () => {
       {shop ? (
         <div>
           <ul>
-            {shop.ratings.map(ratings => (
-              <li key={ratings._id}>
-                <p>User: {ratings.username}</p>
-                <p>Rating: {ratings.rating}</p>
-                <p>Review: {ratings.review}</p>
-              </li>
-            ))}
+          {shop.ratings && shop.ratings.length > 0 && (
+            <ul>
+              {shop.ratings.map(rating => (
+                <li key={rating._id}>
+                  <p>User: {rating.username}</p>
+                  <p>Rating: {rating.rating}</p>
+                  <p>Review: {rating.review}</p>
+                </li>
+              ))}
+            </ul>
+          )}
           </ul>
 
         </div>
