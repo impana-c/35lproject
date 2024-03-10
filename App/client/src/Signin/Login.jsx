@@ -1,85 +1,87 @@
-import React, { useState } from "react";
+
+import './Login.css'; //imports the css file 
+import React, {useState} from "react"; 
 import { Link } from "react-router-dom";
-import axios from 'axios'
-import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar'; 
+ 
+function Login() { 
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
 
-function Login() {    
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
-    const navigate = useNavigate()
+    try {
+      const result = await axios.post("http://localhost:3001/login", { email, password });
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        axios.post("http://localhost:3001/login", { email, password })
-        .then(result => {
-            console.log(result)
-            // Direct to homepage if user and password match
-            if(result.data === "Correct user and password."){
-                // localStorage.setItem('email', email);
-                const token = generateToken(20); 
-                localStorage.setItem('token', token);
-                axios.post("http://localhost:3001/startsession", { token, email })
-                navigate("/home")
-            // Otherwise send various alert messages if user doesn't exist/password doesn't match
-            } else if (result.data === "Password is wrong."){
-                alert("Password is incorrect, please try again.")
-            } else{
-                navigate("/signup")
-                alert("No user exists with that email, please sign up.")
-            }
-        })
-        .catch(err => console.log(err))
+      if (result.data === "Correct user and password.") {
+        const token = generateToken(20);
+        localStorage.setItem('token', token);
+        axios.post("http://localhost:3001/startsession", { token, email });
+        navigate("/home");
+      } else if (result.data === "Password is wrong.") {
+        alert("Password is incorrect, please try again.");
+      } else {
+        navigate("/signup");
+        alert("No user exists with that email, please sign up.");
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    const generateToken = (length) => {
-        const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        let token = "";
-        for (let i = 0; i < length; i++) {
-            const randomIndex = Math.floor(Math.random() * characters.length);
-            token += characters.charAt(randomIndex);
-        }
-        return token;
-    };
-
-    return (
-        <div>
-            <div>
-                <h2><center>Login</center></h2>
-                <form onSubmit={handleSubmit}> 
-                {/* Create form with email, and password options */}
-                    <div>
-                        <label htmlFor="email">
-                            <strong>Email: </strong>
-                        </label>
-                        <input 
-                            type="text" 
-                            placeholder='Enter Email' 
-                            name='email' 
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="password">
-                            <strong>Password: </strong>
-                        </label>
-                        <input
-                            type="password" 
-                            placeholder='Enter Password' 
-                            name='password' 
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    <button> Login</button>
-                    </form>
-                    <div>
-                        Don't have an account?
-                        <Link to="/signup"><button>Sign Up</button></Link>
-                    </div>
-                
-            </div>
-        </div>
-      );
+  const generateToken = (length) => {
+    const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    let token = "";
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      token += characters.charAt(randomIndex);
     }
-    
+    return token;
+  };
+
+
+  return ( //changes the layout to make everything show up in the middle and work wit hte transitions and styling from the CSS file.
+    <div className = "main">
+      <input type ="checkbox" id= "chk" aria-hidden = "true"/>
+      <div className='signup'>
+        <form>
+          <label htmlFor = "chk" aria-hidden="true">Sign up</label>
+          <input type= "text" name= "txt" placeholder='User Name' required= "" />
+          <input type= "email" name= "email" placeholder='Email' required= "" />
+          <input type= "password" name= "pswd" placeholder='Password' required= "" />
+          <button> Sign up</button>
+        </form>
+          
+      </div>
+
+      <div className = "login">
+        <form onSubmit={handleSubmit}>
+          <label htmlFor='chk' aria-hidden = "true">Login</label>
+          <input
+            type = "email"
+            name = "email"
+            placeholder = "Email"
+            required = ""  
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <input 
+          type = "password"
+          name = "pswd"
+          placeholder = "Password"
+          required = ""  
+          onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type ="submit">Login</button>
+          </form>
+      </div>
+    </div>
+  );
+}
+
+
 export default Login;
