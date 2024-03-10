@@ -28,7 +28,8 @@ with open('data.csv', 'r') as csvfile:
             'wifi':row['wifi'],
             'noise':row['noise'],
             'studyability':row['studyability'],
-            'ratings': row['ratings']
+            'ratings': row['ratings'],
+            'imgurl': row['imgurl'],
         })
 
 print("Data imported successfully into MongoDB.")

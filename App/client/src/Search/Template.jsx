@@ -38,7 +38,7 @@ function Template(){
         lng: shop && shop.location.coordinates[1]
       };
       const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: 'YOURAPIKEY', //CHANGE
+        googleMapsApiKey: 'API', //CHANGE
         libraries,
       });
       if (loadError) {
@@ -59,6 +59,9 @@ function Template(){
                 <p>Location: {shop.location.address}</p>
                 <p>Average rating: {shop.averageRating}</p>
                 <p>Cost: {shop.cost}</p> {/* replace with number of $ */}
+                {shop.imgurl && (
+                  <img src={shop.imgurl} alt="Shop Image" style={{ maxWidth: '200px', maxHeight: '200px' }} />
+                )}
               </div>
               <GoogleMap
                 mapContainerStyle={mapContainerStyle}

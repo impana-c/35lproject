@@ -1,11 +1,21 @@
-name,address,lat,long,averageRating,numRatings,cost,bathrooms,wifi,noise,studyability,ratings
-"Ministry of Coffee","1010 Glendon Ave",34.062100,-118.444060,3.6,428,2,"yes","yes","moderate","good",[]
-"Espresso Profeta","1129 Glendon Ave",34.060260,-118.444230,3.7,965,2,"yes","yes","moderate","good",[]
-"Elysee Bakery & Cafe","1099 Gayley Ave",34.060190,-118.446530,3.4,737,2,"yes","yes","quiet","good",[]
-"Starbucks","10955 Weyburn Ave",34.062538,-118.444206,3.0,304,1,"yes","yes","moderate","bad",[]
-"Alfred Coffee","1154 Westwood Blvd",34.059818,-118.444481,3.5,113,2,"no","yes","loud","good",[]
-"Upside Down","10962 Le Conte Ave",34.063450,-118.447530,4.9,98,1,"yes","yes","moderate","bad",[]
-"Espressoteric Coffee","1311 Westwood Blvd",34.056760,-118.442710,4.2,114,2,"yes","yes","quiet","good",[]
-"Bluestone Lane","950 Westwood Blvd",34.062910,-118.445230,3.7,88,2,"yes","yes","moderate","bad",[]
-"Le Pain Quotidien","1122 S Gayley Ave",34.059780,-118.446050,4.0,865,2,"yes","yes","quiet","bad",[]
-"Laisy Daisy Cafe","1101 Gayley Ave",34.059570,-118.446350,3.7,198,2,"yes","yes","moderate","bad",[]
+name,address,lat,long,averageRating,numRatings,cost,bathrooms,wifi,noise,studyability,ratings,imgurl
+"Ministry of Coffee","1010 Glendon Ave",34.062100,-118.444060,3.6,428,2,"yes","yes","moderate","good",[],"https://wp.dailybruin.com/images/2017/11/web.ns_.ministryofcoffee.JP_.jpg"
+"Espresso Profeta","1129 Glendon Ave",34.060260,-118.444230,3.7,965,2,"yes","yes","moderate","good",[],"https://s3.amazonaws.com/onthegrid.city/assets/grid/los-angeles/westwood/espresso-profeta/2016-02-18-21.57.22.jpg"
+"Elysee Bakery & Cafe","1099 Gayley Ave",34.060190,-118.446530,3.4,737,2,"yes","yes","quiet","good",[],"https://espressoandsarcasm.files.wordpress.com/2013/03/elysee.png"
+"Starbucks","10955 Weyburn Ave",34.062538,-118.444206,3.0,304,1,"yes","yes","moderate","bad",[],"https://wp.dailybruin.com/images/2016/02/IMG_1861.jpg"
+"Alfred Coffee","1154 Westwood Blvd",34.059818,-118.444481,3.5,113,2,"no","yes","loud","good",[],"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6d6jnnhXkN0IWfcQt4ObrCaGR8E_07-sXuAt8aHt6HA&s"
+"Upside Down","10962 Le Conte Ave",34.063450,-118.447530,4.9,98,1,"yes","yes","moderate","bad",[],"https://wp.dailybruin.com/images/2021/05/2.ALK_.jpg"
+"Espressoteric Coffee","1311 Westwood Blvd",34.056760,-118.442710,4.2,114,2,"yes","yes","quiet","good",[],"https://fastly.4sqi.net/img/general/600x600/433928148_RVYqOL4Ym_Qr1rltInF3YLxieATErDS_VrL4hUaQ3YE.jpg"
+"Bluestone Lane","950 Westwood Blvd",34.062910,-118.445230,3.7,88,2,"yes","yes","moderate","bad",[],"https://bluestonelane.com/wp-content/uploads/2021/09/Bluestone_Westwood_0033_Web-scaled.jpg"
+"Le Pain Quotidien","1122 S Gayley Ave",34.059780,-118.446050,4.0,865,2,"yes","yes","quiet","bad",[],"https://a.mktgcdn.com/p/DdGRDmRQPAhWBL9o_FphUrs5-1L3Y4Dgs5Cl4tHuc3g/1280x720.jpg"
+"Laisy Daisy Cafe","1101 Gayley Ave",34.059570,-118.446350,3.7,198,2,"yes","yes","moderate","bad",[],"https://fastly.4sqi.net/img/general/200x200/2435376_H3Gt4CXXVFaZwIO6u5-nZUMLKn79kxKVOBbIRvKI534.jpg"
+"Junbi", "10967 Weyburn Ave",34.062190,-118.447710,4.1,596,2,"yes","no","moderate","bad",[],"https://wp.dailybruin.com/images/2020/01/web.ae_.junbi_.KL_.jpg"
+"Kerchoff Coffee House","Ucla Campus Kerckhoff Hall, Fl 2",34.069520,-118.444820,3.4,116,1,"yes","yes","moderate","good",[],"https://fastly.4sqi.net/img/general/600x600/4697764_MhGREGw-dHHXQsIcIYJJDGA8lZDOBPtPzePlL4GT_ig.jpg"
+"Honey Krush","1136 Westwood Blvd",34.060086,-118.444725,4.7,42,1,"yes","yes","moderate","good",[],"https://wp.dailybruin.com/images/2023/10/news.honeykrush.JMJ_.jpg"
+"Sipp Coffee House","1427 Westwood Blvd",34.054683,-118.441538,4.9,7,2,"yes","yes","moderate","good",[],"https://s3-media0.fl.yelpcdn.com/bphoto/FwKaM9H5eGhAO9tZCalNRg/348s.jpg"
+"Anderson Cafe","110 Westwood Plz",34.073881,-118.443375,4.3,4,2,"yes","yes","moderate","good",[],"https://images.squarespace-cdn.com/content/v1/61b244bd3419a10c6b5ea8d7/5885559d-7ff0-4693-9e60-176b35d58b9b/Anderson-edited.jpeg"
+"Sharetea","1055 Broxton Ave",34.061414,-118.446540,4.2,179,2,"yes","yes","loud","bad",[],"https://wp.dailybruin.com/images/2020/01/web.ns_.teatrend.MB_.jpg"
+"Evelyn & Mo Ostin Music Café","460 Portola Plz",34.070217,-118.441450,3.9,13,1,"yes","yes","moderate","good",[],"https://www.collegemagazine.com/wp-content/uploads/2023/03/music-cafe-768x1024.jpg"
+"Lollicup Fresh","308 Westwood Plz Fl 1",34.070366,-118.444285,3.6,25,1,"yes","yes","loud","bad",[],"https://s3-media0.fl.yelpcdn.com/bphoto/JGS3Ez-Q0O6Gw0ARF6a2Vg/348s.jpg"
+"Jimmy's Coffee House","398 Portola Plz Valle Commons",34.073631,-118.439137,2.8,20,1,"yes","yes","moderate","good",[],"https://fastly.4sqi.net/img/general/200x200/1619847_5fd-d42DvuIZ5D9Jkra5nHXLPJFSFHFa10Y2XBRG3d4.jpg"
+"The Coffee Bean & Tea Leaf","574 Hilgard Ave Hillel Student Center UCLA",34.070252,-118.438413,3.7,9,1,"yes","yes","moderate","good",[],"https://wp.dailybruin.com/images/2016/05/web.ns_.coffeebean.LU_-1024x682.jpg"

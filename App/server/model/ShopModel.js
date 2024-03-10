@@ -15,7 +15,8 @@ const shopSchema = new mongoose.Schema(
         wifi: {type: String},
         noise: {type: String},
         studyability: {type:String},
-        ratings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
+        ratings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
+        imgurl: {type: String}
     }
 )
 
