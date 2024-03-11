@@ -10,9 +10,12 @@ function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
+  const [name, setName] = useState()
+  const [password2, setPassword2] = useState()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
 
     try {
       const result = await axios.post("http://localhost:3001/login", { email, password });
@@ -32,6 +35,27 @@ function Login() {
       console.log(error);
     }
   };
+  
+    const handleSubdmit = (e) => {
+        e.preventDefault()
+        axios.post("http://localhost:3001/signup", { name, email, password, password2 })
+        .then(result => {
+            console.log(result)
+            // Check for incorrect signups
+            if(result.data === "Name, email, and password are required"){
+                alert("All fields are required, please try again.")
+            } else if (result.data === "An account already exists with that email."){
+                alert("An account already exists with that email, please log in.")
+            } else if (result.data === "Passwords do not match.") {
+                alert("Passwords do not match, please try again.")
+            // Otherwise redirect to login page
+            } else{
+                navigate("/profile")
+            }
+        })
+        .catch(err => console.log(err))
+    }
+    
 
   const generateToken = (length) => {
     const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -49,12 +73,14 @@ function Login() {
     <div className = "main">
       <input type ="checkbox" id= "chk" aria-hidden = "true"/>
       <div className='signup'>
-        <form>
+        <form onSubmit={handleSubdmit}>
           <label htmlFor = "chk" aria-hidden="true" className="Login-label" >Sign up</label>
-          <input type= "text" name= "txt" placeholder='User Name' required= "" className = "login-input" />
-          <input type= "email" name= "email" placeholder='Email' required= ""  className = "login-input" />
-          <input type= "password" name= "pswd" placeholder='Password' required= ""  className = "login-input" />
+          <input type= "text" name= "txt" placeholder='User Name' required= "" className = "login-input" onChange={(e) => setName(e.target.value)} />
+          <input type= "email" name= "email" placeholder='Email' required= ""  className = "login-input"  onChange={(e) => setEmail(e.target.value)} />
+          <input type= "password" name= "pswd" placeholder='Password' required= ""  className = "login-input" onChange={(e) => setPassword(e.target.value)} />
+          <input type= "password" name= "pswd" placeholder='Retype Password' required= ""  className = "login-input" onChange={(e) => setPassword2(e.target.value)} />
           <button> Sign up</button>
+
         </form>
           
       </div>
