@@ -1,0 +1,20 @@
+.home-background{
+    background-color:#4b3832;
+}
+
+.cafeGridWrapper {
+    margin-top: 20px; /* Add margin to create space between the header and cafe grid */
+}
+
+.header-text{
+    text-align: center;
+    color: #fdf5c9
+}
+
+.profile-button{
+    position: fixed;
+    top: 30px;
+    left: 1450px;
+    text-align: center
+}
+

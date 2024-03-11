@@ -4,7 +4,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 import Signup from './Signin/Signup'
 import Login from './Signin/Login' 
-import Homepage from './Homepage'
+import Homepage from './Homepage/Homepage'
 import Profile from './Profile/Profile'
 import UpdateProfile from './Profile/UpdateProfile'
 import Search from './Search/Search';
