@@ -160,7 +160,7 @@ export function Header() {
     const [searchResult, setSearchResult] = useState([])
     const [key,setKey] = useState("")
     const [price, setPrice] = useState(9)
-    const [slideDistance, setSlideDistance] = useState(5)
+    const [slideDistance, setSlideDistance] = useState(0.5)
     const [rating, setRating] = useState(Number)
     const [numRatings, setNumRatings] = useState(Number)
     const [checkbox1, setCheckBox1] = useState(false)
@@ -271,7 +271,7 @@ export function Header() {
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
               value={key}
-              onChange={handleSlideChange}
+              onChange= {(e) => setKey(e.target.value)}
             />
           </Search>
         </RoundedToolbar>
@@ -289,6 +289,7 @@ export function Header() {
             label="Price"
             onChange={handlePriceChange}
           >
+            {/* change value of the prices to match the real distribution*/}
             <MenuItem value={1}>$</MenuItem>
             <MenuItem value={2}>$$</MenuItem>
             <MenuItem value={3}>$$$</MenuItem>
