@@ -5,8 +5,8 @@
 } 
 /* this sets the font throughout the styling to be monospace */
 
-
-body { /* this sets the property to be flex, meaning that it is able to change as it is being moved. The background gradient is also being set here. */
+ /* this sets the property to be flex, meaning that it is able to change as it is being moved. The background gradient is also being set here. */
+.Login-body {
   margin: 0;
   padding: 0;
   display: flex;
@@ -38,7 +38,7 @@ body { /* this sets the property to be flex, meaning that it is able to change a
   width: 100;
 }
 
-label { /*signup/login labels are styled ehre */
+.Login-label {
   color: #fff;
   justify-content: center;
   font-size: 2.3em;
@@ -49,8 +49,8 @@ label { /*signup/login labels are styled ehre */
   transition: .5s ease-in-out;
 }
 
- 
-input { /*styles how it looks like when the user inputs something into the boxes */
+
+.login-input {
   height: 20px;
   width: 60%;
   background: #e0dede;

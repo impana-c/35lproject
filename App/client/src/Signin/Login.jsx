@@ -44,15 +44,16 @@ function Login() {
   };
 
 
-  return ( //changes the layout to make everything show up in the middle and work wit hte transitions and styling from the CSS file.
+  return ( //updated this as needed to figure out what i needed to change 
+  <div className="Login-body">
     <div className = "main">
       <input type ="checkbox" id= "chk" aria-hidden = "true"/>
       <div className='signup'>
         <form>
-          <label htmlFor = "chk" aria-hidden="true">Sign up</label>
-          <input type= "text" name= "txt" placeholder='User Name' required= "" />
-          <input type= "email" name= "email" placeholder='Email' required= "" />
-          <input type= "password" name= "pswd" placeholder='Password' required= "" />
+          <label htmlFor = "chk" aria-hidden="true" className="Login-label" >Sign up</label>
+          <input type= "text" name= "txt" placeholder='User Name' required= "" className = "login-input" />
+          <input type= "email" name= "email" placeholder='Email' required= ""  className = "login-input" />
+          <input type= "password" name= "pswd" placeholder='Password' required= ""  className = "login-input" />
           <button> Sign up</button>
         </form>
           
@@ -60,12 +61,13 @@ function Login() {
 
       <div className = "login">
         <form onSubmit={handleSubmit}>
-          <label htmlFor='chk' aria-hidden = "true">Login</label>
+          <label htmlFor='chk' aria-hidden = "true" className="Login-label">Login</label>
           <input
             type = "email"
             name = "email"
             placeholder = "Email"
-            required = ""  
+            required = ""
+            className="login-input"  
             onChange={(e) => setEmail(e.target.value)}
           />
 
@@ -74,11 +76,13 @@ function Login() {
           name = "pswd"
           placeholder = "Password"
           required = ""  
+          className="login-input"  
           onChange={(e) => setPassword(e.target.value)}
           />
           <button type ="submit">Login</button>
           </form>
       </div>
+    </div>
     </div>
   );
 }
