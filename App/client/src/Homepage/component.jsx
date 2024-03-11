@@ -1,0 +1,426 @@
+import * as React from 'react';
+import { styled, alpha } from '@mui/material/styles';
+import { Link } from "react-router-dom";
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import InputBase from '@mui/material/InputBase';
+import Avatar from '@mui/material/Avatar';
+import SearchIcon from '@mui/icons-material/Search';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import { useEffect, useState } from "react"
+import axios from 'axios'
+import Slider from "@mui/material/Slider";
+import { useNavigate } from "react-router-dom";
+// import '../App.css'
+// import '../index.css'
+
+const marks = [
+    {
+      value: 10,
+      label: "1 mi",
+    },
+    {
+      value: 50,
+      label: "5 mi",
+    },
+    {
+      value: 100,
+      label: "10 mi",
+    },
+  ];
+
+  function valuetext(value) {
+    return `${value}mi`;
+  }
+  
+  function valueLabelFormat(value) {
+    return marks.findIndex((mark) => mark.value === value) + 1;
+  }
+
+
+function intersection(arr1, arr2) {
+    const result = [];
+    console.log(arr1)
+    console.log(arr2)
+    for (let i = 0; i < arr1.length; i++) {
+        for (let j = 0; j < arr2.length; j++) {
+            if (arr1[i]._id === arr2[j]._id) {
+                result.push(arr1[i])
+                break;
+            }
+        }
+    }
+    return result;
+}
+
+function calculateDistance(lat2, lon2) {
+    // Convert latitude and longitude from degrees to radians
+    const degToRad = Math.PI / 180;
+    let lat1 = 34.068920 * degToRad;
+    let lon1 = -118.445183 * degToRad;
+    lat2 = lat2 * degToRad;
+    lon2 = lon2 * degToRad;
+    
+    // Radius of the Earth in kilometers
+    const R = 6371.0;
+    
+    // Compute the change in coordinates
+    const dlon = lon2 - lon1;
+    const dlat = lat2 - lat1;
+    
+    // Apply the Haversine formula
+    const a = Math.sin(dlat / 2)**2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dlon / 2)**2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c;
+    const distanceMiles = distance * 0.621371;
+    
+    return distanceMiles;
+}
+export function searchFunc() {
+    const [searchResult, setSearchResult] = useState([])
+    const [key,setKey] = useState("")
+    const [rating, setRating] = useState(Number)
+    const [numRatings, setNumRatings] = useState(Number)
+    const [location, setLocation] = useState(Number)
+    const [checkbox1, setCheckBox1] = useState(false)
+    const [checkboxC1, setCheckBoxC1] = useState(false)
+    const [checkboxC2, setCheckBoxC2] = useState(false)
+    const [cost, setCost] = useState(Number)
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                let searchResultData = []
+                if (!key.trim()) {
+                    const all = await axios.get("http://localhost:3001/all");
+                    searchResultData = all.data.data
+                }
+                if (key) {
+                    const searchRes = await axios.get("http://localhost:3001/api/v1/name", { params: { key: key } });
+                    //console.log(searchRes);
+                    searchResultData = searchRes.data.data;
+                }
+                
+                
+                if (rating) {
+                    const ratingRes = await axios.get("http://localhost:3001/ratings", { params: { num: rating } });
+                    console.log(ratingRes);
+                    const filterData = ratingRes.data.data;
+                    // Perform intersection of searchResult and filter
+                    searchResultData = intersection(searchResultData, filterData);
+                    //setSearchResult(intersectedData);
+                }
+                if (numRatings) {
+                    const numRatingRes = await axios.get("http://localhost:3001/numRatings", { params: { num: numRatings } });
+                    console.log(numRatingRes)
+                    const filterData2 = numRatingRes.data.data
+                    
+                    searchResultData = intersection(searchResultData, filterData2)
+                }
+
+                if (location) {
+                    for (let i = 0; i < searchResultData.length; i++) {
+                        const lat1 = searchResultData[i].location.coordinates[0];
+                        const lon1 = searchResultData[i].location.coordinates[1];
+                        const distanceFrom = calculateDistance(lat1, lon1)
+                        if (distanceFrom > location) {
+                            searchResultData.splice(i, 1)
+                            i--;
+                        }
+                    }
+                }
+                if (cost) {
+                    for (let i = 0; i < searchResultData.length; i++) {
+                        const cur = searchResultData[i].cost
+                        if (cur > cost) {
+                            searchResultData.splice(i, 1)
+                            i--;
+                        }
+                    }
+                }
+                setSearchResult(searchResultData)
+                
+                //console.log(searchResult)
+            } catch (error) {
+                console.log(error);
+            }
+        };
+    
+        fetchData();
+    }, [key, rating, numRatings, location, checkbox1, cost, checkboxC1]);
+        /*console.log(filter)
+        console.log(searchResult)
+        const gt = searchResult.filter(element => filter.includes(element))
+        console.log(gt)*/
+        // To Do: only have the ones that are in both filter and searchresult be displayed
+    
+    const handleCheckboxChangeL = async (distance) => {
+        setCheckBox1(!checkbox1); // Update checkbox state
+        
+        // Use the updated checkbox state to determine the location value
+        const newLocation = checkbox1 ? 100 : distance; // Change location based on checkbox state
+        
+        setLocation(newLocation); // Set the location state
+    }
+
+    const handleCheckboxChangeC1 = async (cost) => {
+        setCheckBoxC1(!checkboxC1); // Update checkbox state
+        
+        // Use the updated checkbox state to determine the location value
+        const newCost = checkboxC1 ? 100 : cost; // Change location based on checkbox state
+        
+        setCost(newCost); // Set the location state
+        console.log(cost)
+    }
+    
+    const handleCheckboxChangeC2 = async (cost) => {
+        setCheckBoxC1(!checkboxC2); // Update checkbox state
+        
+        // Use the updated checkbox state to determine the location value
+        const newCost = checkboxC2 ? 100 : cost; // Change location based on checkbox state
+        
+        setCost(newCost); // Set the location state
+        console.log(cost)
+    }
+}
+
+
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha('#dbc1ac', 0.75),
+  '&:hover': {
+    backgroundColor: alpha('#dbc1ac', 0.85),
+  },
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  width: '100%',
+  [theme.breakpoints.up('lg')]: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(2),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  width: '100%',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
+  },
+}));
+
+export const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+    },
+    cafeItem: {
+       // Add margin to move the element down
+      padding: theme.spacing(1),
+      borderRadius: theme.spacing(1),
+      border: 'none',
+    },
+    image: {
+      width: '100%',
+      height: '250px',
+      borderRadius: theme.spacing(1),
+      objectFit: 'cover', // Option 1: Crop the image
+    },
+    name: {
+      fontSize: '1.2rem',
+      fontWeight: 'bold',
+      margin: theme.spacing(1, 0),
+    },
+    rating: {
+      fontSize: '1rem',
+      fontWeight: 'bold',
+      color: '#f44336', // Red color for rating
+      margin: theme.spacing(1, 0),
+    },
+    description: {
+      fontSize: '1rem',
+      margin: theme.spacing(1, 0),
+    },
+  }));
+
+const RoundedToolbar = styled(Toolbar)(({ theme }) => ({
+    borderRadius: '10px',
+    boxShadow: 'none',
+  }));
+
+export function Header() {
+    const [searchResult, setSearchResult] = useState([])
+    const [key,setKey] = useState("")
+    const [rating, setRating] = useState(Number)
+    const [numRatings, setNumRatings] = useState(Number)
+    const [location, setLocation] = useState(Number)
+    const [slider1, setSlider] = useState(false)
+    const [checkbox1, setCheckBox1] = useState(false)
+    const [checkboxC1, setCheckBoxC1] = useState(false)
+    const [checkboxC2, setCheckBoxC2] = useState(false)
+    const [cost, setCost] = useState(Number)
+    const classes = useStyles();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                let searchResultData = []
+                if (!key.trim()) {
+                    const all = await axios.get("http://localhost:3001/all");
+                    searchResultData = all.data.data
+                }
+                if (key) {
+                    const searchRes = await axios.get("http://localhost:3001/api/v1/name", { params: { key: key } });
+                    console.log(searchRes);
+                    searchResultData = searchRes.data.data;
+                }
+                if (rating) {
+                    const ratingRes = await axios.get("http://localhost:3001/ratings", { params: { num: rating } });
+                    console.log(ratingRes);
+                    const filterData = ratingRes.data.data;
+                    // Perform intersection of searchResult and filter
+                    searchResultData = intersection(searchResultData, filterData);
+                    //setSearchResult(intersectedData);
+                }
+                if (numRatings) {
+                    const numRatingRes = await axios.get("http://localhost:3001/numRatings", { params: { num: numRatings } });
+                    console.log(numRatingRes)
+                    const filterData2 = numRatingRes.data.data
+                    
+                    searchResultData = intersection(searchResultData, filterData2)
+                }
+
+                if (location) {
+                    for (let i = 0; i < searchResultData.length; i++) {
+                        const lat1 = searchResultData[i].location.coordinates[0];
+                        const lon1 = searchResultData[i].location.coordinates[1];
+                        const distanceFrom = calculateDistance(lat1, lon1)
+                        if (distanceFrom > location) {
+                            searchResultData.splice(i, 1)
+                            i--;
+                        }
+                    }
+                }
+                if (cost) {
+                    for (let i = 0; i < searchResultData.length; i++) {
+                        const cur = searchResultData[i].cost
+                        if (cur > cost) {
+                            searchResultData.splice(i, 1)
+                            i--;
+                        }
+                    }
+                }
+                setSearchResult(searchResultData)
+                
+                //console.log(searchResult)
+            } catch (error) {
+                console.log(error);
+            }
+        };
+    
+        fetchData();
+    }, [key, rating, numRatings, location, checkbox1, cost, checkboxC1]);
+        /*console.log(filter)
+        console.log(searchResult)
+        const gt = searchResult.filter(element => filter.includes(element))
+        console.log(gt)*/
+        // To Do: only have the ones that are in both filter and searchresult be displayed
+    
+    const distanceSliderChange = async (distance) => {
+        setCheckBox1(!checkbox1); // Update checkbox state
+        
+        // Use the updated checkbox state to determine the location value
+        const newLocation = checkbox1 ? 100 : distance; // Change location based on checkbox state
+        
+        setLocation(newLocation); // Set the location state
+    }
+
+    const handleCheckboxChangeC1 = async (cost) => {
+        setCheckBoxC1(!checkboxC1); // Update checkbox state
+        
+        // Use the updated checkbox state to determine the location value
+        const newCost = checkboxC1 ? 100 : cost; // Change location based on checkbox state
+        
+        setCost(newCost); // Set the location state
+        console.log(cost)
+    }
+    
+    const handleCheckboxChangeC2 = async (cost) => {
+        setCheckBoxC1(!checkboxC2); // Update checkbox state
+        
+        // Use the updated checkbox state to determine the location value
+        const newCost = checkboxC2 ? 100 : cost; // Change location based on checkbox state
+        
+        setCost(newCost); // Set the location state
+        console.log(cost)
+    }
+  return (
+    <>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" sx= {{ backgroundColor: 'transparent', boxShadow: 'none', marginBottom: '10px'}}>
+        <RoundedToolbar sx={{backgroundColor: '#4b3832'}}>
+            <Link to="/profile">
+            <Avatar></Avatar>
+            </Link>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', marginRight: 0} }}
+          >
+          </Typography>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            {/* Search Bar */}
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+              value={key}
+              onChange={(e) => setKey(e.target.value)}
+            />
+          </Search>
+        </RoundedToolbar>
+      </AppBar>
+      </Box>
+
+      {/* Cafe Grid */}
+      <div className={classes.root}>
+        <Grid container spacing={3}>
+          {searchResult.map((cafe, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Paper elevation={3} className={classes.cafeItem}>
+                <div className={classes.name}>{cafe.name}</div>
+                <div className={classes.averageRating}>Rating: {cafe.averageRating}</div>
+              </Paper>
+            </Grid>
+          ))}
+        </Grid>
+      </div>
+    </>
+  );
+}
