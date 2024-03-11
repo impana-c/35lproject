@@ -7,18 +7,26 @@
 
 
 body { /* this sets the property to be flex, meaning that it is able to change as it is being moved. The background gradient is also being set here. */
+  /*
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  */
   background: linear-gradient(to bottom, #4b3832, #efe9e2);
 }
 
 
 
 .main {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   height: 500px;
   width: 350px;
   overflow:hidden;
