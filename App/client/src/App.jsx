@@ -11,7 +11,11 @@ import Search from './Search/Search';
 import Template from './Search/Template';
 import Recommend from './Recommendation/Recommendation';
 import ReviewForm from './Ratings/ReviewForm';
-// import './App.css'
+//import './App.css'
+/*<Route path='/' element={<Signup/>}/>
+<Route path='/signup' element={<Signup/>}/>
+<Route path='/login' element={<Login/>}/>
+*/
 
 function App() {
   return (
@@ -24,7 +28,6 @@ function App() {
         <Route path='/home' element={<Homepage/>}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/updateprofile' element={<UpdateProfile/>}/>
-        {/* <Route path='/search' element={<Search/>}/> */}
         <Route path='/searchresult' element={<Template/>}/>
         <Route path='/recommend' element={<Recommend/>}/>
         <Route path='/reviews' element={<ReviewForm/>}/>
