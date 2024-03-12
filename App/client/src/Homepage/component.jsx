@@ -317,11 +317,19 @@ export function Header() {
     </StyledFilterBar>
 
 
-      {/* Cafe Grid */}
-      <div className={classes.root}>
+{/* Cafe Grid */}
+<div className={classes.root}>
         <Grid container spacing={3}>
           {searchResult.map((cafe, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
+              <Link
+                  to="/searchresult" 
+                  onClick={() => {
+                      // Store the name in local storage before navigating
+                      localStorage.setItem('searchresult', cafe.name);
+                      console.log(localStorage.getItem('searchresult'))
+                  }}
+              >
               <Paper elevation={3} className={classes.cafeItem}>
                 <img className={classes.image} src={cafe.imgurl} alt={cafe.name} />
                 <div className={classes.name}>{cafe.name}</div>
@@ -331,7 +339,8 @@ export function Header() {
 
                 </div>
               </Paper>
-            </Grid>
+              </Link> 
+            </Grid> 
           ))}
         </Grid>
       </div>
