@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import './UpdateProfile.css'
 
 
 function UpdateProfile(){
@@ -60,12 +61,12 @@ function UpdateProfile(){
     }
 
     return (
-        <div>
-            <div>
+        <div className="UpdateProfile-body">
+            <div className = "UpdateProfile-main">
             <h2><center>Update Profile</center></h2>
                 {/* Create form with email, name, and password options */}
                 {user ? (
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} style = {{ textAlign: 'center'}}>
                     <div>
                         <label htmlFor="name">
                             <strong>Name: </strong>
@@ -74,6 +75,7 @@ function UpdateProfile(){
                             type="text" 
                             placeholder={user.name}
                             name='Name' 
+                            className="UpdateProfile-input"
                             onChange={(e) => setName(e.target.value)}
                         />
                     </div>
@@ -85,11 +87,12 @@ function UpdateProfile(){
                             type="text" 
                             placeholder={user.email}
                             name='email' 
+                            className="UpdateProfile-input"
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <p></p>
-                    <p>Update password:</p>
+                    <h2><center>Update Password</center></h2>
                     <div>
                         <label htmlFor="passwordOld">
                             <strong>Current Password: </strong>
@@ -98,6 +101,7 @@ function UpdateProfile(){
                             type="password" 
                             placeholder='Enter Current Password' 
                             name='passwordOld' 
+                            className="UpdateProfile-input"
                             onChange={(e) => setPasswordOld(e.target.value)}
                         />
                     </div>
@@ -109,10 +113,11 @@ function UpdateProfile(){
                             type="password" 
                             placeholder='Enter New Password' 
                             name='passwordNew' 
+                            className="UpdateProfile-input"
                             onChange={(e) => setPasswordNew(e.target.value)}
                         />
                     </div>
-                    <button> Save Changes </button>
+                    <button className="UpdateProfile-button"> Save Changes </button>
                 </form>
                 ) : ( <p>Loading...</p> )}
                 

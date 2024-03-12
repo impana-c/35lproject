@@ -19,6 +19,10 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import WifiIcon from '@mui/icons-material/Wifi';
+import WcIcon from '@mui/icons-material/Wc';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 
 //import "./component_functions"
@@ -157,6 +161,8 @@ const RoundedToolbar = styled(Toolbar)(({ theme }) => ({
 
 export function Header() {
 
+    const [wifiChecked, setWifiChecked] = useState(false);
+    const [restroomChecked, setRestroomChecked] = useState(false);
     const [searchResult, setSearchResult] = useState([])
     const [key,setKey] = useState("")
     const [price, setPrice] = useState(9)
@@ -166,7 +172,6 @@ export function Header() {
     const [checkbox1, setCheckBox1] = useState(false)
     const [checkboxC1, setCheckBoxC1] = useState(false)
     const [checkboxC2, setCheckBoxC2] = useState(false)
-    const [cost, setCost] = useState(Number)
     const classes = useStyles();
 
     useEffect(() => {
@@ -221,6 +226,14 @@ export function Header() {
                         }
                     }
                 }
+                if(restroomChecked){
+                  searchResultData = searchResultData.filter(cafe => cafe.bathrooms === 'yes');
+                }
+
+                if(wifiChecked){
+                  searchResultData = searchResultData.filter(cafe => cafe.wifi === 'yes');
+                }
+
                 setSearchResult(searchResultData)
                 
                 //console.log(searchResult)
@@ -230,7 +243,7 @@ export function Header() {
         };
     
         fetchData();
-    }, [key, rating, numRatings, slideDistance, checkbox1, price, checkboxC1]);
+    }, [key, rating, numRatings, slideDistance, checkbox1, price, wifiChecked, restroomChecked]);
         /*console.log(filter)
         console.log(searchResult)
         const gt = searchResult.filter(element => filter.includes(element))
@@ -244,6 +257,16 @@ export function Header() {
 
     const handleSlideChange = async (event) => {
       setSlideDistance(event.target.value);
+
+    };
+    
+    const wifiChange = async (event) => {
+      setWifiChecked(event.target.checked);
+
+    };
+
+    const restroomChange = async (event) => {
+      setRestroomChecked(event.target.checked);
 
     };
 
@@ -313,6 +336,28 @@ export function Header() {
           <Typography>Range: {slideDistance} mi</Typography>
         </div>
       </Box>
+      <FormControlLabel
+                control={
+                    <Checkbox
+                        checked={wifiChecked}
+                        onChange={wifiChange}
+                        name="Wifi"
+                        color="primary"
+                    />
+                }
+                label="WiFi"
+            />
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        checked={restroomChecked}
+                        onChange={restroomChange}
+                        name="Restrooms"
+                        color="primary"
+                    />
+                }
+                label="Restroom"
+            />
       </Box>   
     </StyledFilterBar>
 
@@ -333,10 +378,10 @@ export function Header() {
               <Paper elevation={3} className={classes.cafeItem}>
                 <img className={classes.image} src={cafe.imgurl} alt={cafe.name} />
                 <div className={classes.name}>{cafe.name}</div>
+                <div className = {classes.features}> 
                 <div className={classes.averageRating}>Rating: {cafe.averageRating}</div>
-                <div className = {classes.features}>
-                Wifi: {cafe.wifi} Restrooms: {cafe.bathrooms}
-
+                {cafe.wifi === 'yes' && <WifiIcon />} {/* Render Wifi icon if WiFi is available */}
+                {cafe.bathrooms === 'yes' && <WcIcon/>} {/* Render Bathroom icon if Bathrooms are available */}
                 </div>
               </Paper>
               </Link> 
