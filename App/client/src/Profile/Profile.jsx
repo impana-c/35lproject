@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import './Profile.css'
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -23,19 +24,20 @@ function Profile() {
   }, []);
 
   return (
-    <div>
-      <h2><center>My Profile</center></h2>
+    <div className = "Profile-body">
+         <div className = "Profile-main">
+      <h2 style= {{textAlign: 'center', fontWeight: 'bold'}}>My Profile</h2>
       {user ? (
-        <div>
+        <div style ={{textAlign: 'center'}}>
           <p>Name: {user.name}</p>
           <p>Email: {user.email}</p>
           <p>Location: UCLA</p>
 
-          <h3>My Visited</h3>
+          <h4>My Visited</h4>
           <ul>
             {user.visited.map(shop => (
               <li key={shop._id}>
-                <p>Name: {shop.name}</p>
+                <h4>Name: {shop.name}</h4>
                 <p>Location: {shop.location.address}</p>
                 <p>Rating: {shop.averageRating}</p>
               </li>
@@ -44,9 +46,9 @@ function Profile() {
 
         </div>
       ) : ( <p>Loading...</p> )}
-      <Link to="/updateprofile"> <button>Update Profile</button> </Link>
-      <Link to="/home"> <button>Home</button> </Link>
-      <Link to="/"><button
+      <Link to="/updateprofile"> <button className='Profile-button'>Update Profile</button> </Link>
+      <Link to="/home"> <button className="Profile-button">Home</button > </Link>
+      <Link to="/"><button className='Profile-button'
           onClick={() => {
               axios.post("http://localhost:3001/endsession", { token: userSession })
                   .then(response => {
@@ -58,6 +60,7 @@ function Profile() {
       >Logout</button></Link> 
 
     </div>
+</div>
   );
 }
 
