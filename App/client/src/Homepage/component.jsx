@@ -408,8 +408,8 @@ export function Header() {
       </AppBar>
       </Box>
 
-      {/* Cafe Grid */}
-      <div className={classes.root}>
+{/* Cafe Grid */}
+<div className={classes.root}>
         <Grid container spacing={3}>
           {searchResult.map((cafe, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
