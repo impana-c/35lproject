@@ -1,4 +1,3 @@
-
 import './Login.css'; //imports the css file 
 import React, {useState} from "react"; 
 import { Link } from "react-router-dom";
@@ -13,13 +12,9 @@ function Login() {
   const [name, setName] = useState()
   const [password2, setPassword2] = useState()
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-
+  const login_func = async () => { 
     try {
       const result = await axios.post("http://localhost:3001/login", { email, password });
-
       if (result.data === "Correct user and password.") {
         const token = generateToken(20);
         localStorage.setItem('token', token);
@@ -36,25 +31,31 @@ function Login() {
     }
   };
   
-    const handleSubdmit = (e) => {
-        e.preventDefault()
-        axios.post("http://localhost:3001/signup", { name, email, password, password2 })
-        .then(result => {
-            console.log(result)
-            // Check for incorrect signups
-            if(result.data === "Name, email, and password are required"){
-                alert("All fields are required, please try again.")
-            } else if (result.data === "An account already exists with that email."){
-                alert("An account already exists with that email, please log in.")
-            } else if (result.data === "Passwords do not match.") {
-                alert("Passwords do not match, please try again.")
-            // Otherwise redirect to login page
-            } else{
-                navigate("/profile")
-            }
-        })
-        .catch(err => console.log(err))
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await login_func();
+  };
+  
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await axios.post("http://localhost:3001/signup", { name, email, password, password2 });
+      console.log(result);
+      if (result.data === "Name, email, and password are required") {
+        alert("All fields are required, please try again.");
+      } else if (result.data === "An account already exists with that email.") {
+        alert("An account already exists with that email, please log in.");
+      } else if (result.data === "Passwords do not match.") {
+        alert("Passwords do not match, please try again.");
+      } else {
+        await login_func();
+        navigate("/home");
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
+  
     
 
   const generateToken = (length) => {
@@ -73,7 +74,7 @@ function Login() {
     <div className = "main">
       <input type ="checkbox" id= "chk" aria-hidden = "true"/>
       <div className='signup'>
-        <form onSubmit={handleSubdmit}>
+        <form onSubmit={handleSignUp}>
           <label htmlFor = "chk" aria-hidden="true" className="Login-label" >Sign up</label>
           <input type= "text" name= "txt" placeholder='User Name' required= "" className = "login-input" onChange={(e) => setName(e.target.value)} />
           <input type= "email" name= "email" placeholder='Email' required= ""  className = "login-input"  onChange={(e) => setEmail(e.target.value)} />
