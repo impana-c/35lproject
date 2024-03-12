@@ -2,11 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Profile.css'
-<<<<<<< HEAD
-=======
-import './Login.css'; //imports the css file 
-
->>>>>>> frontend2
 
 function Profile() {
   const [user, setUser] = useState(null);
