@@ -413,11 +413,20 @@ export function Header() {
         <Grid container spacing={3}>
           {searchResult.map((cafe, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
+              <Link
+                  to="/searchresult" 
+                  onClick={() => {
+                      // Store the name in local storage before navigating
+                      localStorage.setItem('searchresult', cafe.name);
+                      console.log(localStorage.getItem('searchresult'))
+                  }}
+              >
               <Paper elevation={3} className={classes.cafeItem}>
                 <div className={classes.name}>{cafe.name}</div>
                 <div className={classes.averageRating}>Rating: {cafe.averageRating}</div>
               </Paper>
-            </Grid>
+              </Link> 
+            </Grid> 
           ))}
         </Grid>
       </div>
