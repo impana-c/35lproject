@@ -279,6 +279,7 @@ export function Header() {
       </Box>
 
       <StyledFilterBar variant="outlined">
+      <Box sx={{ display: 'flex', width: '100%' }}>     
       <Box sx={{ marginRight: "20px", width: "100px"}}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Price</InputLabel>
@@ -307,17 +308,22 @@ export function Header() {
             onChange={handleSlideChange}
             aria-labelledby="distance-slider"
             valueLabelDisplay="auto"
+            sx={{ height: 2}}
           />
-          <Typography>Location: {slideDistance} mi</Typography>
+          <Typography>Range: {slideDistance} mi</Typography>
         </div>
       </Box>
+      </Box>   
     </StyledFilterBar>
+
+
       {/* Cafe Grid */}
       <div className={classes.root}>
         <Grid container spacing={3}>
           {searchResult.map((cafe, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Paper elevation={3} className={classes.cafeItem}>
+                <img className={classes.image} src={cafe.imgurl} alt={cafe.name} />
                 <div className={classes.name}>{cafe.name}</div>
                 <div className={classes.averageRating}>Rating: {cafe.averageRating}</div>
                 <div className = {classes.features}>
