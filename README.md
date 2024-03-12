@@ -1,5 +1,11 @@
 # 35lproject (REPLACE WITH NAME)
 
+### Cloning
+```
+git clone https://github.com/impana-c/35lproject
+cd 35lproject
+```
+
 ### Installing dependencies for the client
 ```
 cd App/client
@@ -16,10 +22,19 @@ npm init -y
 npm install express mongoose cors nodemon
 ```
 
-### Starting the app
-(make sure to run: 
+### Installing UI dependencies
+```
+cd ../client
+npm install @mui/icons-material f
+cd ..
+npm install @mui/material @mui/styled-engine-sc styled-components f
+```
+
+### Starting the app (after all installations)
+(Make sure to run: 
     `sudo killall -9 node` on terminal 
 if any node processes were previously running.)
+(Assuming you are in the 35lproject repo folder)
 ```
 cd App/client
 npm run dev
