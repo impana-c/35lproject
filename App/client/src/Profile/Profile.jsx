@@ -33,13 +33,13 @@ function Profile() {
           <p>Email: {user.email}</p>
           <p>Location: UCLA</p>
 
-          <h4>My Visited</h4>
-          <ul>
+          <h2>History</h2>
+          <ul style={{ maxHeight: '100px', overflowY: 'auto', listStyle: 'none' }}>
             {user.visited.map(shop => (
-              <li key={shop._id}>
-                <h4>Name: {shop.name}</h4>
-                <p>Location: {shop.location.address}</p>
-                <p>Rating: {shop.averageRating}</p>
+              <li key={shop._id} style={{alignItems: 'center', marginLeft: '-30px', marginBottom: '10px' }}>
+              <h4 style={{ margin: 0 }}>Name: {shop.name}</h4>
+              <p style={{ margin: 0 }}>Location: {shop.location.address}</p>
+              <p style={{ margin: 0 }}>Rating: {shop.averageRating}</p>
               </li>
             ))}
           </ul>
