@@ -26,7 +26,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import './component.css'
 
 
-//import "./component_functions"
 
 function intersection(arr1, arr2) {
   const result = [];
@@ -153,27 +152,40 @@ const RoundedToolbar = styled(Toolbar)(({ theme }) => ({
     backgroundColor: theme.palette.grey[200], // Light gray background
     borderRadius: "10px",
     boxShadow: theme.shadows[2], // Shadow effect
-    marginBottom: "10px", // Centering the toolbar
-    height: "10px",
-    width: "400px", // Width of the toolbar
+    marginBottom: "10px", // Add some margin at the bottom
+    width: "fit-content", // Adjust width to fit content
     padding: theme.spacing(2), // Padding within the toolbar
+    display: "flex", // Use flexbox to align items
+    alignItems: "center", // Center items vertically
+    justifyContent: "center", // Center items horizontally
+    gap: theme.spacing(2), // Add spacing between elements
+  }));
+  
+  const StyledCheckbox = styled(Checkbox)(({ theme }) => ({
+    '& .MuiSvgIcon-root': {
+      borderRadius: '50%',
+      width: '1.2em',
+      height: '1.2em',
+    },
   }));
 
+  const StyledSliderContainer = styled('div')({
+    textAlign: 'center',
+    marginTop: '10px', // Adjust margin-top as needed
+  });
 
 export function Header() {
 
 
     const [wifiChecked, setWifiChecked] = useState(false);
     const [restroomChecked, setRestroomChecked] = useState(false);
+    const [quiet, setQuiet] = useState(false)
     const [searchResult, setSearchResult] = useState([])
     const [key,setKey] = useState("")
-    const [price, setPrice] = useState(9)
+    const [price, setPrice] = useState(0)
     const [slideDistance, setSlideDistance] = useState(0.5)
-    const [rating, setRating] = useState(Number)
-    const [numRatings, setNumRatings] = useState(Number)
-    const [checkbox1, setCheckBox1] = useState(false)
-    const [checkboxC1, setCheckBoxC1] = useState(false)
-    const [checkboxC2, setCheckBoxC2] = useState(false)
+    const [rating, setRating] = useState(0)
+    const [numRatings, setNumRatings] = useState(0)
     const classes = useStyles();
 
     useEffect(() => {
@@ -189,24 +201,25 @@ export function Header() {
                     console.log(searchRes);
                     searchResultData = searchRes.data.data;
                 }
-                if (rating) {
+
+                if (rating != 0) {
+                  searchResultData = searchResultData.filter(cafe => cafe.averageRating >= rating);
+
+                  /*
                     const ratingRes = await axios.get("http://localhost:3001/ratings", { params: { num: rating } });
                     console.log(ratingRes);
                     const filterData = ratingRes.data.data;
                     // Perform intersection of searchResult and filter
                     searchResultData = intersection(searchResultData, filterData);
                     //setSearchResult(intersectedData);
+                  */
                 }
-                if (numRatings) {
-                    const numRatingRes = await axios.get("http://localhost:3001/numRatings", { params: { num: numRatings } });
-                    console.log(numRatingRes)
-                    const filterData2 = numRatingRes.data.data
-                    
-                    searchResultData = intersection(searchResultData, filterData2)
+
+                if(numRatings != 0){
+                  searchResultData = searchResultData.filter(cafe => cafe.numRatings >= numRatings);
                 }
 
                 if (slideDistance) {
-                  console.log("triggered")
                     for (let i = 0; i < searchResultData.length; i++) {
                         const lat1 = searchResultData[i].location.coordinates[0];
                         const lon1 = searchResultData[i].location.coordinates[1];
@@ -219,21 +232,22 @@ export function Header() {
                         }
                     } 
                 }
-                if (price != null) {
-                    for (let i = 0; i < searchResultData.length; i++) {
-                        const cur = searchResultData[i].cost
-                        if (cur > price) {
-                            searchResultData.splice(i, 1)
-                            i--;
-                        }
-                    }
+
+                if (price != 0) {
+                  searchResultData = searchResultData.filter(cafe => cafe.cost === price);
+                   
                 }
+
                 if(restroomChecked){
                   searchResultData = searchResultData.filter(cafe => cafe.bathrooms === 'yes');
                 }
 
                 if(wifiChecked){
                   searchResultData = searchResultData.filter(cafe => cafe.wifi === 'yes');
+                }
+
+                if(quiet){
+                  searchResultData = searchResultData.filter(cafe => cafe.noise === 'quiet');
                 }
 
                 setSearchResult(searchResultData)
@@ -245,7 +259,7 @@ export function Header() {
         };
     
         fetchData();
-    }, [key, rating, numRatings, slideDistance, checkbox1, price, wifiChecked, restroomChecked]);
+    }, [key, rating, numRatings, slideDistance, price, quiet, wifiChecked, restroomChecked]);
         /*console.log(filter)
         console.log(searchResult)
         const gt = searchResult.filter(element => filter.includes(element))
@@ -256,6 +270,10 @@ export function Header() {
       setPrice(event.target.value);
 
     };
+
+    const handleNumRatingChange = async (event) => {
+      setNumRatings(event.target.value)
+    }
 
     const handleSlideChange = async (event) => {
       setSlideDistance(event.target.value);
@@ -271,6 +289,14 @@ export function Header() {
       setRestroomChecked(event.target.checked);
 
     };
+
+    const quietChange = async (event) => {
+      setQuiet(event.target.checked);
+    }
+
+    const handleRatingChange = async (event) => {
+      setRating(event.target.value)
+    }
 
   return (
     <>
@@ -298,7 +324,6 @@ export function Header() {
   Recommended
 </Link>
 
-
           <Typography
             variant="h6"
             noWrap
@@ -322,66 +347,111 @@ export function Header() {
       </AppBar>
       </Box>
 
+
       <StyledFilterBar variant="outlined">
-      <Box sx={{ display: 'flex', width: '100%' }}>     
-      <Box sx={{ marginRight: "20px", width: "100px"}}>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Price</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={price}
-            label="Price"
-            onChange={handlePriceChange}
-          >
-            {/* change value of the prices to match the real distribution*/}
-            <MenuItem value={1}>$</MenuItem>
-            <MenuItem value={2}>$$</MenuItem>
-            <MenuItem value={3}>$$$</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '2.6em'}}>
+          <FormControl>
+            <InputLabel id="demo-simple-select-label">Price</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={price}
+              label="Price"
+              onChange={handlePriceChange}
+              sx={{ minWidth: '70px', height: '30px', marginRight: '20px'}}
+            >
+              {/* Change value of the prices to match the real distribution */}
+              <MenuItem value={0}>Any</MenuItem>
+              <MenuItem value={1}>$</MenuItem>
+              <MenuItem value={2}>$$</MenuItem>
+              <MenuItem value={3}>$$$</MenuItem>
+            </Select>
+          </FormControl>
 
-      <Box sx={{ width: "120px",}}>
-        <div style={{ textAlign: "center", height: '20px', alignItems: 'center'}}>
-          <Slider
-            value={slideDistance}
-            step = {0.1}
-            min={0.1}
-            max={1.5}
-            onChange={handleSlideChange}
-            aria-labelledby="distance-slider"
-            valueLabelDisplay="auto"
-            sx={{ height: 2}}
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '2.6em'}}>
+          <FormControl>
+            <InputLabel id="demo-simple-select-label">Rating</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={rating}
+              label="Ratings"
+              onChange={handleRatingChange}
+              sx={{ minWidth: '70px', height: '30px', marginRight: '20px'}}
+            >
+              {/* Change value of the prices to match the real distribution */}
+              <MenuItem value={0}>1.0+</MenuItem>
+              <MenuItem value={3}>3.0 +</MenuItem>
+              <MenuItem value={3.5}>3.5 +</MenuItem>
+              <MenuItem value={4}>4.0 +</MenuItem>
+              <MenuItem value={4.5}>4.5 +</MenuItem>
+            </Select>
+          </FormControl>
+          </Box>
+
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '2.6em'}}>
+          <FormControl>
+            <InputLabel id="demo-simple-select-label"># Ratings</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={numRatings}
+              label="# Ratings"
+              onChange={handleNumRatingChange}
+              sx={{ minWidth: '70px', height: '30px', marginRight: '20px'}}
+            >
+              {/* Change value of the prices to match the real distribution */}
+              <MenuItem value={0}>All</MenuItem>
+              <MenuItem value={100}>100 +</MenuItem>
+              <MenuItem value={300}>300 +</MenuItem>
+              <MenuItem value={600}>600 +</MenuItem>
+            </Select>
+          </FormControl>
+          </Box>
+
+          <Box sx={{ textAlign: "center", marginTop: '10px', marginRight: '20px'}}>
+            <Slider
+              value={slideDistance}
+              step={0.1}
+              min={0.1}
+              max={1.5}
+              onChange={handleSlideChange}
+              aria-labelledby="distance-slider"
+              valueLabelDisplay="auto"
+              //sx={{ height: 2}}
+            />
+          <Typography sx = {{marginTop: '-8px'}}>Range: {slideDistance} mi</Typography>
+          </Box>
+
+          <Box sx ={{display: 'flex', alignItems: 'center', marginRight: '10px'}}>
+          <WifiIcon/>
+          <StyledCheckbox
+            checked={wifiChecked}
+            onChange={wifiChange}
+            color="primary"
           />
-          <Typography>Range: {slideDistance} mi</Typography>
-        </div>
-      </Box>
-      <FormControlLabel
-                control={
-                    <Checkbox
-                        checked={wifiChecked}
-                        onChange={wifiChange}
-                        name="Wifi"
-                        color="primary"
-                    />
-                }
-                label="WiFi"
-            />
-            <FormControlLabel
-                control={
-                    <Checkbox
-                        checked={restroomChecked}
-                        onChange={restroomChange}
-                        name="Restrooms"
-                        color="primary"
-                    />
-                }
-                label="Restroom"
-            />
-      </Box>   
-    </StyledFilterBar>
+          </Box>
 
+          <Box sx ={{display: 'flex', alignItems: 'center', marginRight: '10px'}}>
+          <WcIcon/>
+          <StyledCheckbox
+            checked={restroomChecked}
+            onChange={restroomChange}
+            color="primary"
+          />
+          </Box>
+
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <VolumeOffIcon/>
+            <StyledCheckbox
+            checked={quiet}
+            onChange={quietChange}
+            //color="primary"
+          />
+          </Box>
+
+        </Box>
+      </StyledFilterBar>
 
 {/* Cafe Grid */}
 <div className={classes.root}>
@@ -396,12 +466,12 @@ export function Header() {
                       console.log(localStorage.getItem('searchresult'))
                   }}
               >
-              <Paper elevation={3} className={classes.cafeItem}>
+              <Paper elevation={3} className={classes.cafeItem} style={{ transition: 'box-shadow 0.3s ease', ':hover': { boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.75)' } }}>
                 <img className={classes.image} src={cafe.imgurl} alt={cafe.name} />
                 <div className={classes.name}>{cafe.name}</div>
                 <div className = {classes.features}> 
                 <div className={classes.averageRating}>Rating: {cafe.averageRating}</div>
-                {cafe.wifi === 'yes' && <WifiIcon />} {/* Render Wifi icon if WiFi is available */}
+                {cafe.wifi === 'yes' && <WifiIcon/>} {/* Render Wifi icon if WiFi is available */}
                 {cafe.bathrooms === 'yes' && <WcIcon/>} {/* Render Bathroom icon if Bathrooms are available */}
                 </div>
               </Paper>

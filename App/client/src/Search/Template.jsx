@@ -38,7 +38,7 @@ function Template(){
         lng: shop && shop.location.coordinates[1]
       };
       const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: 'API', //CHANGE
+        googleMapsApiKey: 'YOUR_API_KEY', //CHANGE to your own API key
         libraries,
       });
       if (loadError) {
