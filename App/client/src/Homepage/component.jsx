@@ -23,6 +23,7 @@ import WifiIcon from '@mui/icons-material/Wifi';
 import WcIcon from '@mui/icons-material/Wc';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import './component.css'
 
 
 //import "./component_functions"
@@ -161,6 +162,7 @@ const RoundedToolbar = styled(Toolbar)(({ theme }) => ({
 
 export function Header() {
 
+
     const [wifiChecked, setWifiChecked] = useState(false);
     const [restroomChecked, setRestroomChecked] = useState(false);
     const [searchResult, setSearchResult] = useState([])
@@ -278,9 +280,23 @@ export function Header() {
             <Link to="/profile">
             <Avatar></Avatar>
             </Link>
-            <Link to="/recommend" style={{ display: 'flex', width: '100%', paddingLeft: '5vh', color: '#dbc1ac' , textDecoration: 'none' }}>
-              Recommended
-            </Link>
+            <Link 
+  to="/recommend" 
+  style={{
+    display: 'inline-block',
+    width: '15%',
+    padding: '5px', 
+    backgroundColor: '#dbc1ac',
+    color: 'white',
+    textDecoration: 'none',
+    textAlign: 'center',
+    borderRadius: '5px',
+    border: '1px solid #dbc1ac',
+    cursor: 'pointer',
+    marginLeft: '10px'
+  }}>
+  Recommended
+</Link>
 
 
           <Typography
