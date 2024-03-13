@@ -1,4 +1,9 @@
-# 35lproject (REPLACE WITH NAME)
+# cafFIEND
+#### fueling your coffee craze.
+
+### MongoDB Setup
+Please follow the instructions in the link [HERE](https://www.mongodb.com/docs/manual/administration/install-community/) to install MongoDB. Also, please follow the instructions to start the server as well.
+Make sure you are using the correct instructions for your specific Operating System.
 
 ### Cloning
 ```
