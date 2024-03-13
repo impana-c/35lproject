@@ -40,5 +40,10 @@ cd App/client
 npm run dev
 ```
 
-### Changing API Keys
-Replace "YOURAPIKEY" in the index.html and Template.jsx files with your Google Maps API Key
+### Putting in Google Maps API Key
+1. Go to Google’s credential page: [Credentials Page](https://console.cloud.google.com/projectselector2/google/maps-apis/credentials?utm_source=Docs_CreateAPIKey&utm_content=Docs_maps-backend&_gl=1*hokhuc*_ga*MTgxNTM2NjM0MS4xNzEwMTg2MzMy*_ga_NRWSTWS78N*MTcxMDI5MDA2MC4xLjEuMTcxMDI5MDIwMS4wLjAuMA)
+2. On credentials page click **Create Credentials** > **API key**
+3. Your API key should show up in a dialog
+4. The new API key is listed on the **Credentials** page under **API key.**
+5. Copy the API key
+6. Replace "YOUR_API_KEY" in the index.html and Template.jsx files with your Google Maps API Key
