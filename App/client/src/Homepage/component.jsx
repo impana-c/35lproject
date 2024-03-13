@@ -313,15 +313,9 @@ export function Header() {
             <Link to="/recommend" style={{ display: 'flex', width: '100%', paddingLeft: '5vh', color: '#dbc1ac' , textDecoration: 'none' }}>
               Recommended
             </Link>
-
-
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', marginRight: 0} }}
-          >
-          </Typography>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: 'flex', marginRight: "60vh", textAlign: 'center', fontFamily: 'Arial, sans-serif', fontWeight: 'bold', fontSize: '24px'}}>
+              cafFIEND
+            </Typography>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
