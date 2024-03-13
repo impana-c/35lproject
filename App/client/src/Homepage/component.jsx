@@ -23,7 +23,12 @@ import WifiIcon from '@mui/icons-material/Wifi';
 import WcIcon from '@mui/icons-material/Wc';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import './component.css'
+import Input from '@mui/material/Input';
+
+import BathroomIcon from '@mui/icons-material/Bathtub';
+import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import { Menu } from '@mui/material';
+
 
 
 
@@ -144,8 +149,10 @@ export const useStyles = makeStyles((theme) => ({
   }));
 
 const RoundedToolbar = styled(Toolbar)(({ theme }) => ({
-    borderRadius: '10px',
+    marginTop: '10px',
+    borderRadius: '5px',
     boxShadow: 'none',
+    width: 'auto'
   }));
 
   const StyledFilterBar = styled(Toolbar)(({ theme }) => ({
@@ -175,7 +182,6 @@ const RoundedToolbar = styled(Toolbar)(({ theme }) => ({
   });
 
 export function Header() {
-
 
     const [wifiChecked, setWifiChecked] = useState(false);
     const [restroomChecked, setRestroomChecked] = useState(false);
@@ -306,31 +312,12 @@ export function Header() {
             <Link to="/profile">
             <Avatar></Avatar>
             </Link>
-            <Link 
-  to="/recommend" 
-  style={{
-    display: 'inline-block',
-    width: '15%',
-    padding: '5px', 
-    backgroundColor: '#dbc1ac',
-    color: 'white',
-    textDecoration: 'none',
-    textAlign: 'center',
-    borderRadius: '5px',
-    border: '1px solid #dbc1ac',
-    cursor: 'pointer',
-    marginLeft: '10px'
-  }}>
-  Recommended
-</Link>
-
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', marginRight: 0} }}
-          >
-          </Typography>
+            <Link to="/recommend" style={{ display: 'flex', width: '100%', paddingLeft: '5vh', color: '#dbc1ac' , textDecoration: 'none' }}>
+              Recommended
+            </Link>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: 'flex', marginRight: "60vh", textAlign: 'center', fontFamily: 'Arial, sans-serif', fontWeight: 'bold', fontSize: '24px'}}>
+              cafFIEND
+            </Typography>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
