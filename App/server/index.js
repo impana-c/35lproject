@@ -251,6 +251,7 @@ app.post('/reviews', async (req, res) => {
     if (shop) {
         shop.ratings instanceof Array ? shop.ratings.unshift(reviewtoadd._id) : shop.ratings = [reviewtoadd._id];
         await shop.save();
+        res.json({ shop });
     }
     user.visited.unshift(shop._id);
     let newSumRatings = shop.averageRating * shop.numRatings;
