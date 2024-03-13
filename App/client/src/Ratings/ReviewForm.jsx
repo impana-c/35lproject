@@ -27,7 +27,7 @@ const ReviewForm = () => {
       };
   
       getInfo();
-    }, []);
+    }, [review]);
   
 
   const handleSubmit = async (e) => {
@@ -39,9 +39,10 @@ const ReviewForm = () => {
       const res = await axios.post('http://localhost:3001/reviews', { coffeeShopName, rating, review, userID: user._id, shopID: shop._id });
       console.log(res.data);
       console.log(coffeeShopName);
-     
+      alert("Review submitted.");
       setRating('');
       setReview('');
+      navigate("/searchresult");
     } catch (err) {
       console.error(err);
     }
