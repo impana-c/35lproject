@@ -278,6 +278,11 @@ export function Header() {
             <Link to="/profile">
             <Avatar></Avatar>
             </Link>
+            <Link to="/recommend" style={{ display: 'flex', width: '100%', paddingLeft: '5vh', color: '#dbc1ac' , textDecoration: 'none' }}>
+              Recommended
+            </Link>
+
+
           <Typography
             variant="h6"
             noWrap
