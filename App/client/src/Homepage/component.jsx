@@ -24,11 +24,10 @@ import WcIcon from '@mui/icons-material/Wc';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Input from '@mui/material/Input';
-
 import BathroomIcon from '@mui/icons-material/Bathtub';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import { Menu } from '@mui/material';
-
+import "./component.css"
 
 
 
@@ -314,10 +313,28 @@ export function Header() {
             </Link>
             <Link to="/recommend" style={{ display: 'flex', width: '100%', paddingLeft: '5vh', color: '#dbc1ac' , textDecoration: 'none' }}>
               Recommended
+              
             </Link>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: 'flex', marginRight: "60vh", textAlign: 'center', fontFamily: 'Arial, sans-serif', fontWeight: 'bold', fontSize: '24px'}}>
-              cafFIEND
-            </Typography>
+            <Typography
+    variant="h6"
+    component="div"
+    sx={{
+      textAlign: 'center',
+      fontFamily: 'Arial, sans-serif',
+      fontWeight: 'bold',
+      fontSize: '24px',
+      marginRight: '480px',
+      marginBottom: '10px',
+      cursor: 'pointer', 
+      color: '#efe9e2'
+    }}
+    onClick={() => {
+      const history = useHistory();
+      history.push('/');
+    }}
+  >
+    cafFIEND
+  </Typography>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

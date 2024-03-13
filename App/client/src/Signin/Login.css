@@ -1,9 +1,5 @@
 
 
-* {
-  font-family: "Poppins", sans-serif;
-}
-/* this sets the font throughout the styling to be monospace */
 
  /* this sets the property to be flex, meaning that it is able to change as it is being moved. The background gradient is also being set here. */
 .Login-body {
