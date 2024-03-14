@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Typography, Box, Button, CircularProgress } from '@mui/material';
 import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api';
-import BathroomIcon from '@mui/icons-material/Bathtub';
+import BathroomIcon from '@mui/icons-material/Wc';
 import WifiIcon from '@mui/icons-material/Wifi';
 import NoiseAwareIcon from '@mui/icons-material/VolumeUp';
 import StudyIcon from '@mui/icons-material/School';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import './Template.css';
 import ReviewForm from '../Ratings/ReviewForm';
 
@@ -60,7 +59,6 @@ function Template() {
       {shop && center ? (
         <>
           <Box className="common-section-style section">
-            <LocationOnIcon color="action" />
             <Typography component="p">Location: {shop.location.address}</Typography>
             <Typography component="p">Average rating: {shop.averageRating}</Typography>
             <Typography component="p">Cost: {'$'.repeat(shop.cost)}</Typography>
@@ -77,13 +75,13 @@ function Template() {
           </Box>
 
           <Box className="common-section-style features">
-            <Typography variant="h6">Features</Typography>
-            <ul className=".feature-list">
-              <li><BathroomIcon /> Bathrooms: {shop.bathrooms}</li>
-              <li><WifiIcon /> Wifi: {shop.wifi}</li>
-              <li><NoiseAwareIcon /> Noise: {shop.noise}</li>
-              <li><StudyIcon /> Studyability: {shop.studyability}</li>
-            </ul>
+              <Typography variant="h6">Features</Typography>
+              <ul className="feature-list"> {/* Removed the dot before feature-list */}
+                <li><BathroomIcon /> Bathrooms: {shop.bathrooms}</li>
+                <li><WifiIcon /> Wifi: {shop.wifi}</li>
+                <li><NoiseAwareIcon /> Noise: {shop.noise}</li>
+                <li><StudyIcon /> Studyability: {shop.studyability}</li>
+              </ul>
           </Box>
           <ReviewForm />
           <Button
@@ -109,7 +107,15 @@ function Template() {
         </Box>
       )}
 
-      <Typography variant="caption" className="footer-note">
+      <Typography
+        variant="caption"
+        className="footer-note"
+        sx={{
+          marginTop: '20px', 
+          display: 'block', 
+          textAlign: 'center', 
+        }}
+      >
         Note: much of the data on this page was taken from 'yelp.com'.
       </Typography>
     </div>
