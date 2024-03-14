@@ -324,7 +324,7 @@ export function Header() {
       fontWeight: 'bold',
       fontSize: '24px',
       marginRight: '480px',
-      marginBottom: '10px',
+      marginBottom: '0px',
       cursor: 'pointer', 
       color: '#efe9e2'
     }}

@@ -6,6 +6,8 @@ import Paper from '@mui/material/Paper';
 import WifiIcon from '@mui/icons-material/Wifi';
 import WcIcon from '@mui/icons-material/Wc';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@mui/material/Typography';
+
 
 const useStyles = makeStyles((theme) => ({
   cafeItem: {
@@ -57,24 +59,45 @@ function Recommendation() {
   }, []);
 
   return ( //took grid logic from componenet to showcase them
-    <Grid container spacing={3} direction="column" alignItems = "center">
-      {recommend.map((cafe, index) => (
-       <Grid item xs={12} sm={6} md={4} key={index} style={{ height: '300px', width: '300px' }}>
-          <Paper elevation={3} className={classes.cafeItem}>
-            <Link to="/searchresult" onClick={() => localStorage.setItem('searchresult', cafe.name)}>
-              <img className={classes.image} src={cafe.imgurl} alt={cafe.name} />
-              <div className={classes.name} style={{ color: 'black' }}>{cafe.name}</div>
-              <div className={classes.features}>
-                <div className={classes.averageRating}style={{ color: 'black' }}>Rating: {cafe.averageRating}</div>
-                {cafe.wifi === 'yes' && <WifiIcon />}
-                {cafe.bathrooms === 'yes' && <WcIcon />}
-              </div>
-            </Link>
-          </Paper>
-        </Grid>
-      ))}
-    </Grid>
-  );
+  <div>
+    <Link to="/home" style={{ textDecoration: 'underline', color: 'black'  }}>
+  <Typography
+    variant="h6"
+    component="div"
+    sx={{
+      position: 'fixed',
+      bottom: '10px',
+      left: '10px',
+      fontFamily: 'Arial, sans-serif',
+      fontWeight: 'bold',
+      fontSize: '24px',
+      cursor: 'pointer',
+    }}
+  >
+    Go back to Home
+  </Typography>
+</Link>
+  <Typography variant="h2" align="center" gutterBottom style={{ fontWeight: 'bold' }}>
+    Top Rated
+  </Typography>
+  <Grid container spacing={3}f alignItems="center">
+    {recommend.map((cafe, index) => (
+      <Grid item xs={12} sm={6} md={4} key={index} style={{ height: '300px', width: '300px' }}>
+        <Paper elevation={3} className={classes.cafeItem}>
+          <Link to="/searchresult" onClick={() => localStorage.setItem('searchresult', cafe.name)}>
+            <img className={classes.image} src={cafe.imgurl} alt={cafe.name} />
+            <div className={classes.name} style={{ color: 'black' }}>{cafe.name}</div>
+            <div className={classes.features}>
+            <div className={classes.averageRating} style={{ color: 'black' }}>Rating: {cafe.averageRating}</div>
+              {cafe.wifi === 'yes' && <WifiIcon />}
+              {cafe.bathrooms === 'yes' && <WcIcon />}
+            </div>
+          </Link>
+        </Paper>
+      </Grid>
+    ))}
+  </Grid>
+</div>
+);
 }
-
 export default Recommendation;
