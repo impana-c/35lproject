@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Putting data into mongoDB. Please make sure you have mongoDB set up and python3 installed and in your $PATH.
+pip install pymongo
 python3 insert.py
 
 # Installing dependencies for the client
