@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Putting data into mongoDB. Please make sure you have mongoDB set up and python3 installed and in your $PATH.
+python3 insert.py
+
 # Installing dependencies for the client
 cd App/client
 npm install
