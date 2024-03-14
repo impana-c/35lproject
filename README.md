@@ -72,6 +72,7 @@ Use an API key from [this document](https://docs.google.com/document/d/1cdZCQZ-p
 3. Select the project you want for this app.
 4. Fill out the dialog boxes and an API key should show up.
 5. Copy the API key.
+6. Make sure that the key is only restricted to the localhost website you open the app on (will show up when doing npm run run dev like "http://localhost:5173/searchresult")
 
 # Contributors
 cafFIEND was developed by:
