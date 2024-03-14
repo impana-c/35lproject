@@ -62,7 +62,14 @@ const ReviewForm = () => {
         </div>
         <div>
           <label>Review:</label>
-          <TextField value={review} onChange={(e) => setReview(e.target.value)} multiline rows={4} fullWidth margin="normal" />
+          <TextField value={review} onChange={(e) => setReview(e.target.value)} multiline rows={4} fullWidth margin="normal"   InputProps={{
+    style: {
+      border: '1px solid #ced4da', // Use color that matches your design
+      borderRadius: 4,
+      outline: 'none', // Remove additional outline
+      boxShadow: 'none', // Remove additional shadow if present
+    },
+  }} />
         </div>
         <Box display="flex" justifyContent="center" mt={2}>
           <Button 
