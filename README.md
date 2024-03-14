@@ -26,6 +26,8 @@ chmod u+x start.sh
 
 ### Installing dependencies for the client
 ```
+pip install pymongo
+python3 insert.py
 cd App/client
 npm install
 npm i express cors mongoose dotenv nodemon concurrently 
