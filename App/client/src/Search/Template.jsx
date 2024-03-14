@@ -65,7 +65,8 @@ function Template() {
         sx={{
           color: '#4b3832',
           fontSize: '35px',
-          marginTop: '-15px'
+          marginTop: '-15px',
+          marginBottom: '5px'
         }}
       >
       </HomeIcon>
@@ -75,9 +76,11 @@ function Template() {
         <>
           <Paper className="common-section-style section">
             <img className = "image" src={shop.imgurl} alt="Shop Image"/>
-            <Typography component="p" sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', fontSize:'2vh'}}>Location: {shop.location.address}</Typography>
-            <Typography component="p" sx={{ fontFamily: 'Poppins, sans-serif' , fontSize:'2vh'}}>Average rating: {shop.averageRating}</Typography>
-            <Typography component="p" sx={{ fontFamily: 'Poppins, sans-serif', fontSize:'2vh'}}>Cost: {'$'.repeat(shop.cost)}</Typography>
+            <div style={{lineSpacing:'1.5rem', marginTop: '20px', marginBottom: '20px', marginLeft: "5px"}}>
+            <Typography component="p" sx={{ fontWeight: 'bold', fontSize:'2vh'}}>Location: {shop.location.address}</Typography>
+            <Typography component="p" sx={{ fontSize:'2vh'}}>Average rating: {shop.averageRating}</Typography>
+            <Typography component="p" sx={{ fontSize:'2vh'}}>Cost: {'$'.repeat(shop.cost)}</Typography>
+            </div>
             <GoogleMap
               mapContainerStyle={{ height: '400px', width: '100%' }}
               zoom={17}

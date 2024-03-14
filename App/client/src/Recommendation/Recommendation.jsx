@@ -28,9 +28,10 @@ export const useStyles = makeStyles((theme) => ({
     objectFit: 'cover', // Option 1: Crop the image
   },
   name: {
-    fontSize: '1.2rem',
+    fontSize: '1.4rem',
     fontWeight: 'bold',
-    marginTop: '15px'
+    marginTop: '15px',
+    fontFamily: 'Poppins, sans-serif'
   },
   rating: {
     fontSize: '1rem',
@@ -66,7 +67,19 @@ function Recommendation() {
   return ( //took grid logic from componenet to showcase them
 
   <>
-  <Typography variant="h2" align="center" gutterBottom style={{ marginTop: '10px', marginBottom: '10px', fontWeight: 'bold',  fontFamily: 'Poppins, sans-serif', color: '#4b3832' }}>
+        <Link to="/home">
+        <HomeIcon
+            sx={{
+            color: '#4b3832',
+            fontSize: '35px',
+            textAlign: 'center',
+            marginLeft: '5px',
+            marginTop: '5px'
+            }}
+        >
+        </HomeIcon>
+        </Link>
+  <Typography variant="h2" align="center" gutterBottom style={{ marginTop: '1px', marginBottom: '20px', fontWeight: 'bold',  fontFamily: 'Poppins, sans-serif', color: '#4b3832' }}>
     Top Rated
   </Typography>
 
@@ -87,7 +100,7 @@ function Recommendation() {
               <Paper elevation={3} className={classes.cafeItem}>
                 <img className={classes.image} src={cafe.imgurl} alt={cafe.name} />
                 <div className={classes.name}>{cafe.name}</div>
-                <div className={classes.averageRating}>Rating: {cafe.averageRating}</div>
+                <div style = {{fontFamily: 'Poppins, sans-serif', fontSize: '2vh'}} className={classes.averageRating}>Rating: {cafe.averageRating}</div>
                 <div className= {classes.icon}>
                 <div className = {classes.wifi}>{cafe.wifi === 'yes' && <WifiIcon style = {{marginRight: '5px'}}/>} </div>
                 <div classname = {classes.bathroom}>{cafe.bathrooms === 'yes' && <WcIcon/>} </div>
@@ -99,18 +112,6 @@ function Recommendation() {
         </Grid>
     </div>
 
-      <Link to="/home">
-      <HomeIcon
-        sx={{
-          color: '#4b3832',
-          fontSize: '45px',
-          position: 'relative',
-          bottom: '800px',
-          left: '10px',
-        }}
-      >
-      </HomeIcon>
-    </Link>
     </>
   );
 }

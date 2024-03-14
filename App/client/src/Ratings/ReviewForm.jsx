@@ -64,9 +64,9 @@ const ReviewForm = () => {
 
 
   const userInformation = user ? (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, marginBottom: 2 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, marginBottom: 2, marginBottom: '-5px' }}>
       <Avatar />
-      <Typography variant="subtitle1" component="p" sx={{ my: 'auto' }}>{user.name}</Typography>
+      <Typography variant="subtitle1" component="p" sx={{ my: 'auto'}}>{user.name}</Typography>
     </Box>
   ) : (
     <Typography>Loading...</Typography>
@@ -75,7 +75,7 @@ const ReviewForm = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <h4 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', fontSize:'3vh', color: '#4b3832'}}>Submit a Review</h4>
+        <h4 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', fontSize:'3vh', color: '#4b3832', marginBottom: '10px'}}>Submit a Review</h4>
         {userInformation}
         <TextField
           label="Rating"
@@ -106,7 +106,8 @@ const ReviewForm = () => {
               '&:hover': {
                 backgroundColor: '#30261d'
               },
-              marginTop: '10px',
+              marginTop: '3px',
+              marginBottom: '20px',
             }}
           >
             Submit Review
@@ -127,7 +128,7 @@ const ReviewForm = () => {
           </Box>
         ))}
         </Box>
-      ) : <Typography sx={{marginTop:'-20px'}}>No reviews available.</Typography>}
+      ) : <Typography sx={{marginTop:'-20px', marginBottom:'10px'}}>No reviews available.</Typography>}
     </div>
   );
 };

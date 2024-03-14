@@ -314,7 +314,7 @@ export function Header() {
             <Link to="/profile">
             <Avatar></Avatar>
             </Link>
-            <Link to="/recommend" style={{ display: 'flex', width: '100%', paddingLeft: '5vh', color: '#dbc1ac', textDecoration: 'none', fontFamily: 'Poppins, sans-serif' }}>
+            <Link to="/recommend" style={{ display: 'flex', width: '100%', paddingLeft: '5vh', color: '#dbc1ac', textDecoration: 'none', fontFamily: 'Poppins, sans-serif', fontWeight: "bold"}}>
               Recommended
             </Link>
             <Typography
@@ -322,7 +322,6 @@ export function Header() {
             component="div"
             sx={{
               textAlign: 'center',
-              fontFamily: 'Arial, sans-serif',
               fontWeight: 'bold',
               fontSize: '35px',
               fontFamily: 'Poppins, sans-serif',
@@ -421,6 +420,7 @@ export function Header() {
               onChange={handleSlideChange}
               aria-labelledby="distance-slider"
               valueLabelDisplay="auto"
+              sx = {{color: '#dbc1ac'}}
               //sx={{ height: 2}}
             />
           <Typography sx = {{marginTop: '-8px', fontFamily: 'Poppins, sans-serif'}}>Range: {slideDistance} mi</Typography>
@@ -472,8 +472,8 @@ export function Header() {
               >
               <Paper elevation={3} className={classes.cafeItem}>
                 <img className={classes.image} src={cafe.imgurl} alt={cafe.name} />
-                <div className={classes.name}>{cafe.name}</div>
-                <div className={classes.averageRating}>Rating: {cafe.averageRating}</div>
+                <div style = {{fontSize: '1.4rem'}} className={classes.name}>{cafe.name}</div>
+                <div style = {{fontFamily: 'Poppins, sans-serif', fontSize: '2vh'}} className={classes.averageRating}>Rating: {cafe.averageRating}</div>
                 <div className= {classes.icon}>
                 <div className = {classes.wifi}>{cafe.wifi === 'yes' && <WifiIcon style = {{marginRight: '5px'}}/>} </div>
                 <div classname = {classes.bathroom}>{cafe.bathrooms === 'yes' && <WcIcon/>} </div>
