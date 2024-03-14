@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Typography, Box, Button, CircularProgress } from '@mui/material';
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api';
 import BathroomIcon from '@mui/icons-material/Bathtub';
 import WifiIcon from '@mui/icons-material/Wifi';
 import NoiseAwareIcon from '@mui/icons-material/VolumeUp';
@@ -72,7 +72,7 @@ function Template() {
               zoom={17}
               center={center}
             >
-              <Marker position={center} />
+              <MarkerF position={center} />
             </GoogleMap>
           </Box>
 
