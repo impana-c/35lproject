@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Box, Typography, Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 const ReviewForm = () => {
   const [coffeeShopName, setCoffeeShopName] = useState('');
@@ -52,23 +54,29 @@ const ReviewForm = () => {
     }
   };
 
-  const userInformation = (
+  const renderStars = (ratingValue) => {
+    let stars = [];
+    for (let i = 0; i < 5; i++) {
+      stars.push(i < ratingValue ? <StarIcon key={i} /> : <StarBorderIcon key={i} />);
+    }
+    return stars;
+  };
+
+
+  const userInformation = user ? (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, marginBottom: 2 }}>
       <Avatar />
-      {user ? <Typography component="p">{user.name}</Typography> : <Typography>Loading...</Typography>}
-      <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
-        <Typography component="p">Rating:</Typography>
-      </Box>
+      <Typography variant="subtitle1" component="p" sx={{ my: 'auto' }}>{user.name}</Typography>
     </Box>
+  ) : (
+    <Typography>Loading...</Typography>
   );
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <h4>Submit a Review</h4>
-        <div>
         {userInformation}
-        </div>
         <TextField
           label="Rating"
           type="number"
@@ -76,30 +84,16 @@ const ReviewForm = () => {
           onChange={(e) => setRating(e.target.value)}
           fullWidth
           margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
         />
-        <Box>
-          <Typography component="label" htmlFor="review-textfield">Review:</Typography>
-          <TextField
-            id="review-textfield"
-            value={review}
-            onChange={(e) => setReview(e.target.value)}
-            multiline
-            rows={4}
-            fullWidth
-            margin="normal"
-            InputProps={{
-              style: {
-                border: '1px solid #ced4da',
-                borderRadius: 4,
-                outline: 'none',
-                boxShadow: 'none',
-              },
-            }}
-          />
-        </Box>
+        <TextField
+          label="Review"
+          value={review}
+          onChange={(e) => setReview(e.target.value)}
+          multiline
+          rows={4}
+          fullWidth
+          margin="normal"
+        />
         <Box display="flex" justifyContent="center" mt={2}>
           <Button
             type="submit"
@@ -120,12 +114,14 @@ const ReviewForm = () => {
       {shop && shop.ratings && shop.ratings.length > 0 ? (
         <Box sx={{ overflowY: 'auto', maxHeight: 300 }}>
           {shop.ratings.map((rating) => (
-            <Box key={rating._id} sx={{ margin: '10px', padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}>
-              <Typography variant="subtitle1">User: {rating.username}</Typography>
-              <Typography variant="body2">Rating: {rating.rating}</Typography>
-              <Typography variant="body2">Review: {rating.review}</Typography>
+          <Box key={rating._id} sx={{ margin: '10px', padding: '10px', border: '0.75px solid #ccc', borderRadius: '3px' }}>
+            <Typography variant="subtitle1">User: {rating.username}</Typography>
+            <Box display="flex">
+              {renderStars(rating.rating)}
             </Box>
-          ))}
+            <Typography variant="body2">Review: {rating.review}</Typography>
+          </Box>
+        ))}
         </Box>
       ) : <Typography>No reviews available.</Typography>}
     </div>
