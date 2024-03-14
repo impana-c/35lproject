@@ -17,6 +17,7 @@ git clone https://github.com/impana-c/cafFIEND.git
 cd cafFIEND
 ```
 # Starting app with shell script
+You will need to be able to run bash and chmod linux command.
 ```
 chmod u+x start.sh
 ./start.sh
