@@ -103,7 +103,7 @@ function Recommendation() {
           color: 'black',
           fontSize: '45px',
           position: 'relative',
-          bottom: '835px',
+          bottom: '800px',
           left: '10px',
         }}
       >

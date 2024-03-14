@@ -52,19 +52,18 @@ function Template() {
   } : null;
 
   return (
-    <div className="template-container">
+    <div className="template-container" style = {{marginTop: '-5px'}}>
       <Typography variant="h3" component="h1" className=".template-header">
         {shop ? shop.name : 'Shop Details'}
       </Typography>
 
       {shop && center ? (
         <>
-          <Paper className="common-section-style section" sx={{marginTop: '10px'}}>
+          <Paper className="common-section-style section">
             <img className = "image" src={shop.imgurl} alt="Shop Image"/>
             <Typography component="p">Location: {shop.location.address}</Typography>
             <Typography component="p">Average rating: {shop.averageRating}</Typography>
             <Typography component="p">Cost: {'$'.repeat(shop.cost)}</Typography>
-            <LocationOnIcon color="action" />
             <GoogleMap
               mapContainerStyle={{ height: '400px', width: '100%' }}
               zoom={17}
