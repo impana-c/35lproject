@@ -66,7 +66,7 @@ function Recommendation() {
   return ( //took grid logic from componenet to showcase them
 
   <>
-  <Typography variant="h2" align="center" gutterBottom style={{ fontWeight: 'bold' }}>
+  <Typography variant="h2" align="center" gutterBottom style={{ fontWeight: 'bold',  fontFamily: 'Poppins, sans-serif', color: '#4b3832' }}>
     Top Rated
   </Typography>
 
@@ -81,7 +81,9 @@ function Recommendation() {
                       localStorage.setItem('searchresult', cafe.name);
                       console.log(localStorage.getItem('searchresult'))
                   }}
+                  style={{ textDecoration: 'underline', fontFamily: 'Poppins, sans-serif' }}
               >
+                
               <Paper elevation={3} className={classes.cafeItem}>
                 <img className={classes.image} src={cafe.imgurl} alt={cafe.name} />
                 <div className={classes.name}>{cafe.name}</div>
@@ -100,7 +102,7 @@ function Recommendation() {
       <Link to="/home">
       <HomeIcon
         sx={{
-          color: 'black',
+          color: '#4b3832',
           fontSize: '45px',
           position: 'relative',
           bottom: '800px',

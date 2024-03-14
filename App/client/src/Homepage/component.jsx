@@ -132,11 +132,13 @@ export const useStyles = makeStyles((theme) => ({
   },
   name: {
     fontSize: '1.2rem',
+    fontFamily: 'Poppins, sans-serif',
     fontWeight: 'bold',
     marginTop: '10px'
   },
   rating: {
     fontSize: '1rem',
+    fontFamily: 'Poppins, sans-serif',
     fontWeight: 'bold',
     color: '#f44336', // Red color for rating
     margin: theme.spacing(1, 0),
@@ -312,7 +314,7 @@ export function Header() {
             <Link to="/profile">
             <Avatar></Avatar>
             </Link>
-            <Link to="/recommend" style={{ display: 'flex', width: '100%', paddingLeft: '5vh', color: '#dbc1ac' , textDecoration: 'none' }}>
+            <Link to="/recommend" style={{ display: 'flex', width: '100%', paddingLeft: '5vh', color: '#dbc1ac', textDecoration: 'none', fontFamily: 'Poppins, sans-serif' }}>
               Recommended
             </Link>
             <Typography
@@ -322,7 +324,8 @@ export function Header() {
               textAlign: 'center',
               fontFamily: 'Arial, sans-serif',
               fontWeight: 'bold',
-              fontSize: '24px',
+              fontSize: '35px',
+              fontFamily: 'Poppins, sans-serif',
               marginRight: '500px',
               marginBottom: '0px',
               cursor: 'pointer', 

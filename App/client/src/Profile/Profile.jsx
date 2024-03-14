@@ -26,9 +26,9 @@ function Profile() {
   return (
     <div className = "Profile-body">
          <div className = "Profile-main">
-      <h2 style= {{textAlign: 'center', fontWeight: 'bold'}}>My Profile</h2>
+      <h2 style= {{textAlign: 'center', fontWeight: 'bold',  fontFamily: 'Poppins, sans-serif'}}>My Profile</h2>
       {user ? (
-        <div style ={{textAlign: 'center'}}>
+        <div style ={{textAlign: 'center' }}>
           <p>Name: {user.name}</p>
           <p>Email: {user.email}</p>
           <p>Location: UCLA</p>
