@@ -63,7 +63,7 @@ function Template() {
             <LocationOnIcon color="action" />
             <Typography component="p">Location: {shop.location.address}</Typography>
             <Typography component="p">Average rating: {shop.averageRating}</Typography>
-            <Typography component="p">Cost: {shop.cost}</Typography>
+            <Typography component="p">Cost: {'$'.repeat(shop.cost)}</Typography>
             {shop.imgurl && (
               <img src={shop.imgurl} alt="Shop Image" style={{ maxWidth: '200px', maxHeight: '200px' }} />
             )}
