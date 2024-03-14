@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import './UpdateProfile.css'
+import HomeIcon from '@mui/icons-material/Home';
 
 
 function UpdateProfile(){
@@ -61,9 +62,22 @@ function UpdateProfile(){
     }
 
     return (
+        <div>
+        <Link to="/home">
+        <HomeIcon
+            sx={{
+            color: '#4b3832',
+            fontSize: '35px',
+            textAlign: 'center',
+            marginLeft: '5px',
+            marginTop: '5px'
+            }}
+        >
+        </HomeIcon>
+        </Link>
         <div className="UpdateProfile-body">
             <div className = "UpdateProfile-main">
-            <h2><center>Update Profile</center></h2>
+            <h4 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', fontSize:'4vh', color: '#4b3832', textAlign: 'center', marginBottom: '5px', marginTop: '20px'}}>Update Profile</h4>
                 {/* Create form with email, name, and password options */}
                 {user ? (
                 <form onSubmit={handleSubmit} style = {{ textAlign: 'center'}}>
@@ -92,7 +106,8 @@ function UpdateProfile(){
                         />
                     </div>
                     <p></p>
-                    <h2><center>Update Password</center></h2>
+                    <p></p>
+                    <h4 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', fontSize:'2.8vh', color: '#4b3832', textAlign: 'center', marginBottom: '5px', marginTop: '35px'}}>Update Password</h4>
                     <div>
                         <label htmlFor="passwordOld">
                             <strong>Current Password: </strong>
@@ -117,11 +132,23 @@ function UpdateProfile(){
                             onChange={(e) => setPasswordNew(e.target.value)}
                         />
                     </div>
-                    <button className="UpdateProfile-button"> Save Changes </button>
+                    <button className="UpdateProfile-button" size="medium"
+            type="submit"
+            variant="contained"
+            style={{
+              fontFamily: 'Poppins, sans-serif',
+              backgroundColor: '#423629',
+              color: '#fff',
+              '&:hover': {
+                backgroundColor: '#30261d'
+              },
+              marginTop: '10px',
+            }}> Save Changes </button>
                 </form>
                 ) : ( <p>Loading...</p> )}
                 
             </div>
+        </div>
         </div>
       );
 }

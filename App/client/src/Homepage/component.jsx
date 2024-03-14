@@ -352,7 +352,7 @@ export function Header() {
 
 
       <StyledFilterBar variant="outlined">
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '2.6em'}}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '2.6em', fontFamily: 'Poppins, sans-serif'}}>
           <FormControl>
             <InputLabel id="demo-simple-select-label">Price</InputLabel>
             <Select
@@ -361,7 +361,7 @@ export function Header() {
               value={price}
               label="Price"
               onChange={handlePriceChange}
-              sx={{ minWidth: '70px', height: '30px', marginRight: '20px'}}
+              sx={{ minWidth: '70px', height: '30px', marginRight: '20px', fontFamily: 'Poppins, sans-serif'}}
             >
               {/* Change value of the prices to match the real distribution */}
               <MenuItem value={0}>Any</MenuItem>
@@ -371,7 +371,7 @@ export function Header() {
             </Select>
           </FormControl>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '2.6em'}}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '2.6em', fontFamily: 'Poppins, sans-serif'}}>
           <FormControl>
             <InputLabel id="demo-simple-select-label">Rating</InputLabel>
             <Select
@@ -380,7 +380,7 @@ export function Header() {
               value={rating}
               label="Ratings"
               onChange={handleRatingChange}
-              sx={{ minWidth: '70px', height: '30px', marginRight: '20px'}}
+              sx={{ minWidth: '70px', height: '30px', marginRight: '20px', fontFamily: 'Poppins, sans-serif'}}
             >
               {/* Change value of the prices to match the real distribution */}
               <MenuItem value={0}>1.0+</MenuItem>
@@ -392,7 +392,7 @@ export function Header() {
           </FormControl>
           </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '2.6em'}}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '2.6em', fontFamily: 'Poppins, sans-serif'}}>
           <FormControl>
             <InputLabel id="demo-simple-select-label"># Ratings</InputLabel>
             <Select
@@ -401,7 +401,7 @@ export function Header() {
               value={numRatings}
               label="# Ratings"
               onChange={handleNumRatingChange}
-              sx={{ minWidth: '70px', height: '30px', marginRight: '20px'}}
+              sx={{ minWidth: '70px', height: '30px', marginRight: '20px', fontFamily: 'Poppins, sans-serif'}}
             >
               {/* Change value of the prices to match the real distribution */}
               <MenuItem value={0}>All</MenuItem>
@@ -412,7 +412,7 @@ export function Header() {
           </FormControl>
           </Box>
 
-          <Box sx={{ textAlign: "center", marginTop: '10px', marginRight: '20px'}}>
+          <Box sx={{ textAlign: "center", marginTop: '10px', marginRight: '20px', fontFamily: 'Poppins, sans-serif'}}>
             <Slider
               value={slideDistance}
               step={0.1}
@@ -423,10 +423,10 @@ export function Header() {
               valueLabelDisplay="auto"
               //sx={{ height: 2}}
             />
-          <Typography sx = {{marginTop: '-8px'}}>Range: {slideDistance} mi</Typography>
+          <Typography sx = {{marginTop: '-8px', fontFamily: 'Poppins, sans-serif'}}>Range: {slideDistance} mi</Typography>
           </Box>
 
-          <Box sx ={{display: 'flex', alignItems: 'center', marginRight: '10px'}}>
+          <Box sx ={{display: 'flex', alignItems: 'center', marginRight: '10px', fontFamily: 'Poppins, sans-serif'}}>
           <WifiIcon/>
           <StyledCheckbox
             checked={wifiChecked}
@@ -435,7 +435,7 @@ export function Header() {
           />
           </Box>
 
-          <Box sx ={{display: 'flex', alignItems: 'center', marginRight: '10px'}}>
+          <Box sx ={{display: 'flex', alignItems: 'center', marginRight: '10px', fontFamily: 'Poppins, sans-serif'}}>
           <WcIcon/>
           <StyledCheckbox
             checked={restroomChecked}
@@ -444,7 +444,7 @@ export function Header() {
           />
           </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' , fontFamily: 'Poppins, sans-serif'}}>
           <VolumeOffIcon/>
             <StyledCheckbox
             checked={quiet}

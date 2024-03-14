@@ -75,7 +75,7 @@ const ReviewForm = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <h4>Submit a Review</h4>
+        <h4 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', fontSize:'3vh', color: '#4b3832'}}>Submit a Review</h4>
         {userInformation}
         <TextField
           label="Rating"
@@ -96,13 +96,17 @@ const ReviewForm = () => {
         />
         <Box display="flex" justifyContent="center" mt={2}>
           <Button
+            size="medium"
             type="submit"
             variant="contained"
             sx={{
+              fontFamily: 'Poppins, sans-serif',
               backgroundColor: '#423629',
+              color: '#fff',
               '&:hover': {
-                backgroundColor: '#30261d',
-              }
+                backgroundColor: '#30261d'
+              },
+              marginTop: '10px',
             }}
           >
             Submit Review
@@ -110,20 +114,20 @@ const ReviewForm = () => {
         </Box>
       </form>
 
-      <h4>Past Reviews</h4>
+      <h4 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', fontSize:'3vh', color: '#4b3832'}}>Past Reviews</h4>
       {shop && shop.ratings && shop.ratings.length > 0 ? (
-        <Box sx={{ overflowY: 'auto', maxHeight: 300 }}>
+        <Box sx={{ overflowY: 'auto', maxHeight: 300, marginTop:'-30px'}}>
           {shop.ratings.map((rating) => (
           <Box key={rating._id} sx={{ margin: '10px', padding: '10px', border: '0.75px solid #ccc', borderRadius: '3px' }}>
             <Typography variant="subtitle1">User: {rating.username}</Typography>
             <Box display="flex">
               {renderStars(rating.rating)}
             </Box>
-            <Typography variant="body2">Review: {rating.review}</Typography>
+            <Typography variant="body2" >Review: {rating.review}</Typography>
           </Box>
         ))}
         </Box>
-      ) : <Typography>No reviews available.</Typography>}
+      ) : <Typography sx={{marginTop:'-20px'}}>No reviews available.</Typography>}
     </div>
   );
 };

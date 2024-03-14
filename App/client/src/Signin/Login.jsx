@@ -71,31 +71,40 @@ function Login() {
 
   return ( //updated this as needed to figure out what i needed to change 
   <div className="Login-body">
+    <div>
+    <h1 style={{ 
+        fontFamily: 'Poppins, sans-serif', 
+        fontSize: '10vh', 
+        color: '#30261d', 
+        textAlign: 'center',
+        textShadow: '0 0px 100px white', // Adding white shadow with blur and offset
+        fontWeight: 'bold'
+      }}>cafFIEND</h1>
     <div className = "main">
       <input type ="checkbox" id= "chk" aria-hidden = "true"/>
       <div className='signup'>
         <form onSubmit={handleSignUp}>
-          <label htmlFor = "chk" aria-hidden="true" className="Login-label" >Sign up</label>
-          <input type= "text" name= "txt" placeholder='User Name' required= "" className = "login-input" onChange={(e) => setName(e.target.value)} />
-          <input type= "email" name= "email" placeholder='Email' required= ""  className = "login-input"  onChange={(e) => setEmail(e.target.value)} />
-          <input type= "password" name= "pswd" placeholder='Password' required= ""  className = "login-input" onChange={(e) => setPassword(e.target.value)} />
-          <input type= "password" name= "pswd" placeholder='Retype Password' required= ""  className = "login-input" onChange={(e) => setPassword2(e.target.value)} />
-          <button> Sign up</button>
+        <label htmlFor="chk" aria-hidden="true" className="Login-label" style={{ fontFamily: 'Poppins, sans-serif' }}>Sign up</label>
+          <input type= "text" name= "txt" placeholder='User Name' required= "" className = "login-input" style={{ fontFamily: 'Poppins, sans-serif' }} onChange={(e) => setName(e.target.value)} />
+          <input type= "email" name= "email" placeholder='Email' required= ""  className = "login-input" style={{ fontFamily: 'Poppins, sans-serif' }} onChange={(e) => setEmail(e.target.value)} />
+          <input type= "password" name= "pswd" placeholder='Password' required= ""  className = "login-input" style={{ fontFamily: 'Poppins, sans-serif' }} onChange={(e) => setPassword(e.target.value)} />
+          <input type= "password" name= "pswd" placeholder='Retype Password' required= ""  className = "login-input" style={{ fontFamily: 'Poppins, sans-serif' }} onChange={(e) => setPassword2(e.target.value)} />
+          <button style={{ fontFamily: 'Poppins, sans-serif' }}> Sign up</button>
 
         </form>
-          
       </div>
 
 
       <div className = "login">
         <form onSubmit={handleSubmit}>
-          <label htmlFor='chk' aria-hidden = "true" className="Login-label">Login</label>
+        <label htmlFor='chk' aria-hidden="true" className="Login-label" style={{ fontFamily: 'Poppins, sans-serif'}}>Login</label>
           <input
             type = "email"
             name = "email"
             placeholder = "Email"
             required = ""
             className="login-input"  
+            style={{ fontFamily: 'Poppins, sans-serif' }}
             onChange={(e) => setEmail(e.target.value)}
           />
 
@@ -105,11 +114,13 @@ function Login() {
           placeholder = "Password"
           required = ""  
           className="login-input"  
+          style={{ fontFamily: 'Poppins, sans-serif' }}
           onChange={(e) => setPassword(e.target.value)}
           />
-          <button type ="submit">Login</button>
+          <button type ="submit" style={{ fontFamily: 'Poppins, sans-serif' }}>Login</button>
           </form>
       </div>
+    </div>
     </div>
     </div>
   );

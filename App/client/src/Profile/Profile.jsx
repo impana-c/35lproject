@@ -26,14 +26,16 @@ function Profile() {
   return (
     <div className = "Profile-body">
          <div className = "Profile-main">
-      <h2 style= {{textAlign: 'center', fontWeight: 'bold',  fontFamily: 'Poppins, sans-serif'}}>My Profile</h2>
+      <h4 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', fontSize:'4vh', color: '#4b3832', textAlign: 'center'}}>My Profile</h4>
       {user ? (
-        <div style ={{textAlign: 'center' }}>
-          <p>Name: {user.name}</p>
-          <p>Email: {user.email}</p>
-          <p>Location: UCLA</p>
+        <div style ={{textAlign: 'center', fontFamily: 'Poppins, sans-serif', marginTop: '-20px'}}>
+          <div >
+          <p> <strong> Name: </strong> {user.name}</p>
+          <p> <strong> Email: </strong>{user.email}</p>
+          <p> <strong> Location: </strong>UCLA</p>
+          </div>
 
-          <h2>History</h2>
+          <h4 style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', fontSize:'4vh', color: '#4b3832', textAlign: 'center', marginBottom: '5px', marginTop: '-5px'}}>History</h4>
           <ul style={{ maxHeight: '100px', overflowY: 'auto', listStyle: 'none' }}>
             {user.visited.map(shop => (
               <li key={shop._id} style={{alignItems: 'center', marginLeft: '-30px', marginBottom: '10px' }}>
@@ -46,9 +48,33 @@ function Profile() {
 
         </div>
       ) : ( <p>Loading...</p> )}
-      <Link to="/updateprofile"> <button className='Profile-button'>Update Profile</button> </Link>
-      <Link to="/home"> <button className="Profile-button">Home</button > </Link>
-      <Link to="/"><button className='Profile-button'
+      <Link to="/updateprofile"> <button className='Profile-button' style={{
+              fontFamily: 'Poppins, sans-serif',
+              backgroundColor: '#423629',
+              color: '#fff',
+              '&:hover': {
+                backgroundColor: '#30261d'
+              },
+              marginTop: '10px',
+            }}>Update Profile</button> </Link>
+      <Link to="/home"> <button className="Profile-button" style={{
+              fontFamily: 'Poppins, sans-serif',
+              backgroundColor: '#423629',
+              color: '#fff',
+              '&:hover': {
+                backgroundColor: '#30261d'
+              },
+              marginTop: '10px',
+            }}>Home</button > </Link>
+      <Link to="/"><button className='Profile-button' style={{
+              fontFamily: 'Poppins, sans-serif',
+              backgroundColor: '#423629',
+              color: '#fff',
+              '&:hover': {
+                backgroundColor: '#30261d'
+              },
+              marginTop: '10px',
+            }}
           onClick={() => {
               axios.post("http://localhost:3001/endsession", { token: userSession })
                   .then(response => {

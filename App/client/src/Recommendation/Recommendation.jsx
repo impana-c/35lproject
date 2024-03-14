@@ -66,7 +66,7 @@ function Recommendation() {
   return ( //took grid logic from componenet to showcase them
 
   <>
-  <Typography variant="h2" align="center" gutterBottom style={{ fontWeight: 'bold',  fontFamily: 'Poppins, sans-serif', color: '#4b3832' }}>
+  <Typography variant="h2" align="center" gutterBottom style={{ marginTop: '10px', marginBottom: '10px', fontWeight: 'bold',  fontFamily: 'Poppins, sans-serif', color: '#4b3832' }}>
     Top Rated
   </Typography>
 

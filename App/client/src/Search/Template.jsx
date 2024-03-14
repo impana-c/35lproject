@@ -10,6 +10,8 @@ import StudyIcon from '@mui/icons-material/School';
 import './Template.css';
 import ReviewForm from '../Ratings/ReviewForm';
 import Paper from '@material-ui/core/Paper';
+import HomeIcon from '@mui/icons-material/Home';
+
 
 const libraries = ['places'];
 
@@ -52,18 +54,30 @@ function Template() {
   } : null;
 
   return (
-    <div className="template-container" style = {{marginTop: '-5px'}}>
-      <Typography variant="h3" component="h1" className=".template-header">
-        {shop ? shop.name : 'Shop Details'}
+    <div className="template-container" style = {{marginTop: '2px', marginBottom: '-3px', fontFamily: 'Poppins, sans-serif'}}>
+
+      <Typography variant="h2" align="center" gutterBottom style={{ fontWeight: 'bold',  fontFamily: 'Poppins, sans-serif', color: '#4b3832', fontSize: '4vh'}}>
+      {shop ? shop.name : 'Shop Details'}
       </Typography>
+
+      <Link to="/home">
+      <HomeIcon
+        sx={{
+          color: '#4b3832',
+          fontSize: '35px',
+          marginTop: '-15px'
+        }}
+      >
+      </HomeIcon>
+    </Link>
 
       {shop && center ? (
         <>
           <Paper className="common-section-style section">
             <img className = "image" src={shop.imgurl} alt="Shop Image"/>
-            <Typography component="p">Location: {shop.location.address}</Typography>
-            <Typography component="p">Average rating: {shop.averageRating}</Typography>
-            <Typography component="p">Cost: {'$'.repeat(shop.cost)}</Typography>
+            <Typography component="p" sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', fontSize:'2vh'}}>Location: {shop.location.address}</Typography>
+            <Typography component="p" sx={{ fontFamily: 'Poppins, sans-serif' , fontSize:'2vh'}}>Average rating: {shop.averageRating}</Typography>
+            <Typography component="p" sx={{ fontFamily: 'Poppins, sans-serif', fontSize:'2vh'}}>Cost: {'$'.repeat(shop.cost)}</Typography>
             <GoogleMap
               mapContainerStyle={{ height: '400px', width: '100%' }}
               zoom={17}
@@ -74,9 +88,9 @@ function Template() {
           </Paper>
 
           <Box className="common-section-style features">
-              <Typography variant="h6">Features</Typography>
+              <Typography variant="h6" sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 'bold', fontSize:'2vh'}}>Features</Typography>
               <ul className="feature-list"> {/* Removed the dot before feature-list */}
-                <li><BathroomIcon /> Bathrooms: {shop.bathrooms}</li>
+                <li ><BathroomIcon /> Bathrooms: {shop.bathrooms}</li>
                 <li><WifiIcon /> Wifi: {shop.wifi}</li>
                 <li><NoiseAwareIcon /> Noise: {shop.noise}</li>
                 <li><StudyIcon /> Studyability: {shop.studyability}</li>
@@ -84,17 +98,18 @@ function Template() {
           </Box>
           <ReviewForm />
           <Button
-            size="small"
+            size="medium"
             variant="contained"
             component={Link}
             to="/home"
             sx={{
+              fontFamily: 'Poppins, sans-serif',
               backgroundColor: '#423629',
               color: '#fff',
               '&:hover': {
                 backgroundColor: '#30261d'
               },
-              marginTop: '2px',
+              marginTop: '10px',
             }}
           >
             Back to Home
