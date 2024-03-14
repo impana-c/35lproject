@@ -16,6 +16,13 @@ Make sure you are using the correct instructions for your specific Operating Sys
 git clone https://github.com/impana-c/cafFIEND.git
 cd cafFIEND
 ```
+### Starting the app
+```
+chmod u+x start.sh
+./start.sh
+```
+
+## Starting app without shell script
 
 ### Installing dependencies for the client
 ```
