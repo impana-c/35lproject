@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box, Typography, Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar';
 
 const ReviewForm = () => {
   const [coffeeShopName, setCoffeeShopName] = useState('');
@@ -51,34 +52,62 @@ const ReviewForm = () => {
     }
   };
 
+  const userInformation = (
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, marginBottom: 2 }}>
+      <Avatar />
+      {user ? <Typography component="p">{user.name}</Typography> : <Typography>Loading...</Typography>}
+      <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
+        <Typography component="p">Rating:</Typography>
+      </Box>
+    </Box>
+  );
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <h4>Submit a Review</h4>
-        {user ? <p>User associated with review: {user.name}</p> : <p>Loading...</p>}
         <div>
-          <label>Rating:</label>
-          <TextField type="number" value={rating} onChange={(e) => setRating(e.target.value)} fullWidth margin="normal" />
+        {userInformation}
         </div>
-        <div>
-          <label>Review:</label>
-          <TextField value={review} onChange={(e) => setReview(e.target.value)} multiline rows={4} fullWidth margin="normal"   InputProps={{
-    style: {
-      border: '1px solid #ced4da', // Use color that matches your design
-      borderRadius: 4,
-      outline: 'none', // Remove additional outline
-      boxShadow: 'none', // Remove additional shadow if present
-    },
-  }} />
-        </div>
+        <TextField
+          label="Rating"
+          type="number"
+          value={rating}
+          onChange={(e) => setRating(e.target.value)}
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <Box>
+          <Typography component="label" htmlFor="review-textfield">Review:</Typography>
+          <TextField
+            id="review-textfield"
+            value={review}
+            onChange={(e) => setReview(e.target.value)}
+            multiline
+            rows={4}
+            fullWidth
+            margin="normal"
+            InputProps={{
+              style: {
+                border: '1px solid #ced4da',
+                borderRadius: 4,
+                outline: 'none',
+                boxShadow: 'none',
+              },
+            }}
+          />
+        </Box>
         <Box display="flex" justifyContent="center" mt={2}>
-          <Button 
-            type="submit" 
-            variant="contained" 
+          <Button
+            type="submit"
+            variant="contained"
             sx={{
-              backgroundColor: '#423629', 
+              backgroundColor: '#423629',
               '&:hover': {
-                backgroundColor: '#30261d', 
+                backgroundColor: '#30261d',
               }
             }}
           >

@@ -52,8 +52,8 @@ function Template() {
   } : null;
 
   return (
-    <div className="container">
-      <Typography variant="h3" component="h1" className="header">
+    <div className="template-container">
+      <Typography variant="h3" component="h1" className=".template-header">
         {shop ? shop.name : 'Shop Details'}
       </Typography>
 
@@ -78,7 +78,7 @@ function Template() {
 
           <Box className="common-section-style features">
             <Typography variant="h6">Features</Typography>
-            <ul className="feature-list">
+            <ul className=".feature-list">
               <li><BathroomIcon /> Bathrooms: {shop.bathrooms}</li>
               <li><WifiIcon /> Wifi: {shop.wifi}</li>
               <li><NoiseAwareIcon /> Noise: {shop.noise}</li>
