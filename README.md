@@ -52,7 +52,7 @@ npm install @mui/material @mui/styled-engine-sc styled-components f
 (Make sure to run: 
     `sudo killall -9 node` on terminal 
 if any node processes were previously running.)
-(Assuming you are in the 35lproject repo folder)
+(Assuming you are in the cafFIEND repo folder)
 ```
 cd App/client
 npm run dev
