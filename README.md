@@ -47,7 +47,7 @@ npm run dev
 
 ### Putting in Google Maps API Key
 1. Go to Google’s credential page: [Credentials Page](https://console.cloud.google.com/projectselector2/google/maps-apis/credentials?utm_source=Docs_CreateAPIKey&utm_content=Docs_maps-backend&_gl=1*hokhuc*_ga*MTgxNTM2NjM0MS4xNzEwMTg2MzMy*_ga_NRWSTWS78N*MTcxMDI5MDA2MC4xLjEuMTcxMDI5MDIwMS4wLjAuMA)
-2. Create a project and setup account
+2. Create a project and setup account (will ask for biling information but is free)
 3. Select the project you want for this app
 4. Fill out the dialog boxes and a API key should show up
 5. Copy the API key
