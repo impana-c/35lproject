@@ -19,5 +19,5 @@ cd ..
 npm install @mui/material @mui/styled-engine-sc styled-components f
 
 # Starting the app (after all installations)
-cd App/client
+cd client
 npm run dev
