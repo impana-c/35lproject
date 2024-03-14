@@ -115,37 +115,38 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    cafeItem: {
-       // Add margin to move the element down
-      padding: theme.spacing(1),
-      borderRadius: theme.spacing(1),
-      border: 'none',
-    },
-    image: {
-      width: '100%',
-      height: '250px',
-      borderRadius: theme.spacing(1),
-      objectFit: 'cover', // Option 1: Crop the image
-    },
-    name: {
-      fontSize: '1.2rem',
-      fontWeight: 'bold',
-      margin: theme.spacing(1, 0),
-    },
-    rating: {
-      fontSize: '1rem',
-      fontWeight: 'bold',
-      color: '#f44336', // Red color for rating
-      margin: theme.spacing(1, 0),
-    },
-    description: {
-      fontSize: '1rem',
-      margin: theme.spacing(1, 0),
-    },
-  }));
+  root: {
+    flexGrow: 1,
+  },
+  cafeItem: {
+     // Add margin to move the element down
+    padding: theme.spacing(1),
+    borderRadius: theme.spacing(1),
+    border: 'none',
+  },
+  image: {
+    width: '100%',
+    height: '250px',
+    borderRadius: theme.spacing(1),
+    objectFit: 'cover', // Option 1: Crop the image
+  },
+  name: {
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    marginTop: '10px'
+  },
+  rating: {
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    color: '#f44336', // Red color for rating
+    margin: theme.spacing(1, 0),
+  },
+  icon : {
+    margin: theme.spacing(1, 0),
+    display: 'flex',
+    alignItems: 'center', // Align items vertically
+  }
+}));
 
 const RoundedToolbar = styled(Toolbar)(({ theme }) => ({
     marginTop: '10px',
@@ -313,25 +314,20 @@ export function Header() {
             </Link>
             <Link to="/recommend" style={{ display: 'flex', width: '100%', paddingLeft: '5vh', color: '#dbc1ac' , textDecoration: 'none' }}>
               Recommended
-              
             </Link>
             <Typography
-    variant="h6"
-    component="div"
-    sx={{
-      textAlign: 'center',
-      fontFamily: 'Arial, sans-serif',
-      fontWeight: 'bold',
-      fontSize: '24px',
-      marginRight: '480px',
-      marginBottom: '0px',
-      cursor: 'pointer', 
-      color: '#efe9e2'
-    }}
-    onClick={() => {
-      const history = useHistory();
-      history.push('/');
-    }}
+            variant="h6"
+            component="div"
+            sx={{
+              textAlign: 'center',
+              fontFamily: 'Arial, sans-serif',
+              fontWeight: 'bold',
+              fontSize: '24px',
+              marginRight: '500px',
+              marginBottom: '0px',
+              cursor: 'pointer', 
+              color: '#efe9e2'
+            }}
   >
     cafFIEND
   </Typography>
@@ -459,6 +455,7 @@ export function Header() {
 
 {/* Cafe Grid */}
 <div className={classes.root}>
+<div className={classes.root}>
         <Grid container spacing={3}>
           {searchResult.map((cafe, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
@@ -470,19 +467,20 @@ export function Header() {
                       console.log(localStorage.getItem('searchresult'))
                   }}
               >
-              <Paper elevation={3} className={classes.cafeItem} style={{ transition: 'box-shadow 0.3s ease', ':hover': { boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.75)' } }}>
+              <Paper elevation={3} className={classes.cafeItem}>
                 <img className={classes.image} src={cafe.imgurl} alt={cafe.name} />
                 <div className={classes.name}>{cafe.name}</div>
-                <div className = {classes.features}> 
                 <div className={classes.averageRating}>Rating: {cafe.averageRating}</div>
-                {cafe.wifi === 'yes' && <WifiIcon/>} {/* Render Wifi icon if WiFi is available */}
-                {cafe.bathrooms === 'yes' && <WcIcon/>} {/* Render Bathroom icon if Bathrooms are available */}
+                <div className= {classes.icon}>
+                <div className = {classes.wifi}>{cafe.wifi === 'yes' && <WifiIcon style = {{marginRight: '5px'}}/>} </div>
+                <div classname = {classes.bathroom}>{cafe.bathrooms === 'yes' && <WcIcon/>} </div>
                 </div>
               </Paper>
               </Link> 
             </Grid> 
           ))}
         </Grid>
+    </div>
       </div>
     </>
   );

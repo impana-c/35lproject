@@ -10,6 +10,7 @@ import StudyIcon from '@mui/icons-material/School';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import './Template.css';
 import ReviewForm from '../Ratings/ReviewForm';
+import Paper from '@material-ui/core/Paper';
 
 const libraries = ['places'];
 
@@ -59,14 +60,12 @@ function Template() {
 
       {shop && center ? (
         <>
-          <Box className="common-section-style section">
-            <LocationOnIcon color="action" />
+          <Paper className="common-section-style section" sx={{marginTop: '10px'}}>
+            <img className = "image" src={shop.imgurl} alt="Shop Image"/>
             <Typography component="p">Location: {shop.location.address}</Typography>
             <Typography component="p">Average rating: {shop.averageRating}</Typography>
             <Typography component="p">Cost: {'$'.repeat(shop.cost)}</Typography>
-            {shop.imgurl && (
-              <img src={shop.imgurl} alt="Shop Image" style={{ maxWidth: '200px', maxHeight: '200px' }} />
-            )}
+            <LocationOnIcon color="action" />
             <GoogleMap
               mapContainerStyle={{ height: '400px', width: '100%' }}
               zoom={17}
@@ -74,7 +73,7 @@ function Template() {
             >
               <MarkerF position={center} />
             </GoogleMap>
-          </Box>
+          </Paper>
 
           <Box className="common-section-style features">
             <Typography variant="h6">Features</Typography>

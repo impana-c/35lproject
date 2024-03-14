@@ -4,42 +4,47 @@ import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@mui/material/Paper';
 import WifiIcon from '@mui/icons-material/Wifi';
-import WcIcon from '@mui/icons-material/Wc';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@mui/material/Typography';
+import HomeIcon from '@mui/icons-material/Home';
+import WashIcon from '@mui/icons-material/Wash';
+import WcIcon from '@mui/icons-material/Wc';
 
 
-const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
   cafeItem: {
+     // Add margin to move the element down
     padding: theme.spacing(1),
     borderRadius: theme.spacing(1),
     border: 'none',
-     height: '250px'
-    
   },
   image: {
     width: '100%',
-    height: '150px', 
+    height: '250px',
     borderRadius: theme.spacing(1),
-    objectFit: 'cover',
+    objectFit: 'cover', // Option 1: Crop the image
   },
   name: {
     fontSize: '1.2rem',
     fontWeight: 'bold',
-    margin: theme.spacing(1, 0),
+    marginTop: '15px'
   },
-  features: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    margin: theme.spacing(1, 0),
-  },
-  averageRating: {
+  rating: {
     fontSize: '1rem',
     fontWeight: 'bold',
-    color: '#f44336',
+    color: '#f44336', // Red color for rating
+    margin: theme.spacing(1, 0),
   },
+  icon : {
+    margin: theme.spacing(1, 0),
+    display: 'flex',
+    alignItems: 'center', // Align items vertically
+  }
 }));
+
 
 function Recommendation() {
   const classes = useStyles();
@@ -59,45 +64,52 @@ function Recommendation() {
   }, []);
 
   return ( //took grid logic from componenet to showcase them
-  <div>
-    <Link to="/home" style={{ textDecoration: 'underline', color: 'black'  }}>
-  <Typography
-    variant="h6"
-    component="div"
-    sx={{
-      position: 'fixed',
-      bottom: '10px',
-      left: '10px',
-      fontFamily: 'Arial, sans-serif',
-      fontWeight: 'bold',
-      fontSize: '24px',
-      cursor: 'pointer',
-    }}
-  >
-    Go back to Home
-  </Typography>
-</Link>
+
+  <>
   <Typography variant="h2" align="center" gutterBottom style={{ fontWeight: 'bold' }}>
     Top Rated
   </Typography>
-  <Grid container spacing={3}f alignItems="center">
-    {recommend.map((cafe, index) => (
-      <Grid item xs={12} sm={6} md={4} key={index} style={{ height: '300px', width: '300px' }}>
-        <Paper elevation={3} className={classes.cafeItem}>
-          <Link to="/searchresult" onClick={() => localStorage.setItem('searchresult', cafe.name)}>
-            <img className={classes.image} src={cafe.imgurl} alt={cafe.name} />
-            <div className={classes.name} style={{ color: 'black' }}>{cafe.name}</div>
-            <div className={classes.features}>
-            <div className={classes.averageRating} style={{ color: 'black' }}>Rating: {cafe.averageRating}</div>
-              {cafe.wifi === 'yes' && <WifiIcon />}
-              {cafe.bathrooms === 'yes' && <WcIcon />}
-            </div>
-          </Link>
-        </Paper>
-      </Grid>
-    ))}
-  </Grid>
-</div>
-);
+
+  <div className={classes.root}>
+        <Grid container spacing={3}>
+          {recommend.map((cafe, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Link
+                  to="/searchresult" 
+                  onClick={() => {
+                      // Store the name in local storage before navigating
+                      localStorage.setItem('searchresult', cafe.name);
+                      console.log(localStorage.getItem('searchresult'))
+                  }}
+              >
+              <Paper elevation={3} className={classes.cafeItem}>
+                <img className={classes.image} src={cafe.imgurl} alt={cafe.name} />
+                <div className={classes.name}>{cafe.name}</div>
+                <div className={classes.averageRating}>Rating: {cafe.averageRating}</div>
+                <div className= {classes.icon}>
+                <div className = {classes.wifi}>{cafe.wifi === 'yes' && <WifiIcon style = {{marginRight: '5px'}}/>} </div>
+                <div classname = {classes.bathroom}>{cafe.bathrooms === 'yes' && <WcIcon/>} </div>
+                </div>
+              </Paper>
+              </Link> 
+            </Grid> 
+          ))}
+        </Grid>
+    </div>
+
+      <Link to="/home">
+      <HomeIcon
+        sx={{
+          color: 'black',
+          fontSize: '45px',
+          position: 'relative',
+          bottom: '835px',
+          left: '10px',
+        }}
+      >
+      </HomeIcon>
+    </Link>
+    </>
+  );
 }
 export default Recommendation;
