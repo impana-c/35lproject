@@ -1,5 +1,6 @@
 # cafFIEND
 #### fueling your coffee craze.
+Public repository link: [https://github.com/impana-c/cafFIEND](https://github.com/impana-c/cafFIEND)
 
 Inspired by [Yelp](https://www.yelp.com/), cafFIEND is a minimalistic website about all things coffee-shop related. cafFIEND is dedicated to coffee enthusiasts, providing a platform to discover and review coffee shops nearby. Users can explore a curated selection of coffee establishments, read and write reviews, and learn info about crucial features for each cafe. The website aims to create a community of coffee lovers sharing their experiences and recommendations to help others find the perfect coffee spot wherever they go.
 
