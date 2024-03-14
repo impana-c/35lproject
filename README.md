@@ -13,8 +13,8 @@ Make sure you are using the correct instructions for your specific Operating Sys
 
 ### Cloning the project
 ```
-git clone https://github.com/impana-c/35lproject
-cd 35lproject
+git clone https://github.com/impana-c/cafFIEND.git
+cd cafFIEND
 ```
 
 ### Installing dependencies for the client
